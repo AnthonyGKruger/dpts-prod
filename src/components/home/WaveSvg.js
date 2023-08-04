@@ -10,9 +10,10 @@ const WaveSvg = () => {
                drop-shadow-2xl rounded-xl px-10`}
               >
                 {/*<h1 className={`text-center md:text-6xl lg:text-7xl xl:text-9xl text-4xl font-extrabold text-slate-800`}>*/}
-                We help Banks and Payment Processors transform their digital
-                ambitions into reality!
-                {/*Unlock the Power of Seamless Payments and Digital Transformation!*/}
+                {/*We help Banks and Payment Processors transform their digital*/}
+                {/*ambitions into reality!*/}
+                Unlock the Power of Seamless Payments and Digital
+                Transformation!
               </h1>
             </div>
 
@@ -20,9 +21,9 @@ const WaveSvg = () => {
               className={`w-full h-full col-span-1 flex justify-center items-center`}
             >
               <button
-                className={`md:mt-10 mt-5 md:h-12 h-9 rounded-xl bg-accent-colour md:px-6 px-3 font-base md:text-lg lg:text-2xl text-sm
-                tracking-wide text-slate-50 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
-                duration-400 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
+                className={`md:mt-10 mt-5 md:h-12 h-9 rounded-xl bg-transparent md:px-6 px-3 font-base md:text-lg lg:text-2xl text-sm
+                tracking-wide text-slate-200 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
+                duration-600 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
                 hover:scale-105 hover:border-accent-colour`}
               >
                 <span>Transform Your Business Today</span>

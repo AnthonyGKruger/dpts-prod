@@ -3,14 +3,14 @@ import HeroSVG from "@/components/home/HeroSVG";
 import { useState } from "react";
 
 const Hero = () => {
-  const containerClasses = `py-6 place-self-center pr-10 transition-all duration-300`;
-  const headingClasses = `text-3xl text-primary-colour transition-all duration-300 text-center`;
-  const paragraphClasses = `mt-5 text-lg transition-all duration-300`;
+  const containerClasses = `py-6 place-self-center pr-10 transition-all duration-700`;
+  const headingClasses = `text-3xl text-primary-colour transition-all duration-700 text-center`;
+  const paragraphClasses = `mt-5 md:text-md lg:text-lg transition-all duration-700`;
   const buttonContainerClasses = `w-full h-full col-span-1 flex justify-center items-center transition-all duration-300`;
   const buttonClasses = `md:mt-10 mt-5 md:h-12 h-9 rounded-xl bg-primary-colour md:px-6 px-3 font-base md:text-lg text-md
                 tracking-wide text-slate-50 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
                 duration-400 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
-                hover:scale-105 hover:border-accent-colour transition-all duration-300`;
+                hover:scale-105 hover:border-accent-colour transition-all duration-700`;
 
   const [serviceData, setServiceData] = useState(
     <div className={containerClasses}>
@@ -39,9 +39,7 @@ const Hero = () => {
         today!
       </p>
       <div className={buttonContainerClasses}>
-        <button className={buttonClasses}>
-          Transform Your Business Today!
-        </button>
+        <button className={buttonClasses}>Contact Us Now!</button>
       </div>
     </div>,
   );
@@ -112,7 +110,7 @@ Are you concerned about the safety and integrity of your digital assets? Don't w
       id: "dtc",
       title: "Digital Transformation Consulting",
       description: [
-        `Are you ready to revolutionize your business and stay ahead in the digital age? Embrace the power of digital transformation with our expert consulting services! At [Your Company Name], we understand that surviving and thriving in today's fast-paced world requires adapting to the latest technologies and trends.`,
+        `Are you ready to revolutionize your business and stay ahead in the digital age? Embrace the power of digital transformation with our expert consulting services! At DPTS, we understand that surviving and thriving in today's fast-paced world requires adapting to the latest technologies and trends.`,
         `Our dedicated team of seasoned consultants will work closely with you to develop tailored strategies, implement cutting-edge solutions, and optimize your operations for increased efficiency and profitability.`,
         `Don't let your competitors outpace you - take charge of your digital future now! Join us on this transformative journey and unlock the true potential of your business. Contact us today and let's pave the way to a brighter, digitally empowered tomorrow. Together, we'll reshape your business for sustainable success.`,
       ],
@@ -155,10 +153,10 @@ Are you concerned about the safety and integrity of your digital assets? Don't w
           </h2>
         </div>
         <div className="grid grid-cols-4 gap-6 md:grid-cols-4 lg:grid-cols-12 lg:py-10">
-          <div className="col-span-4 md:col-span-4 lg:col-span-6 place-items-center">
+          <div className="col-span-4 md:col-span-4 lg:col-span-6 self-center">
             <HeroSVG onClickHandler={onClickHandler} />
           </div>
-          <div className="col-span-4 md:col-span-4 lg:col-span-6 place-items-center  px-20 lg:px-0">
+          <div className="col-span-4 md:col-span-4 lg:col-span-6 place-items-center  md:px-20 lg:px-0">
             {serviceData}
           </div>
         </div>
