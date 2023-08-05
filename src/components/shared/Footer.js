@@ -2,6 +2,7 @@
 import Image from "next/image";
 
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -16,12 +17,12 @@ const Footer = () => {
                 className="col-span-6 md:col-span-9 lg:col-span-4"
                 aria-labelledby="footer-header"
               >
-                <a
+                <Link
                   id="WindUI-5-logo"
                   aria-label="WindUI logo"
                   aria-current="page"
                   className="mb-6 w-full h-full flex items-center gap-2 whitespace-nowrap text-base font-medium leading-6 text-slate-700 focus:outline-none"
-                  href="#"
+                  href="/"
                 >
                   <Image
                     src={"/assets/logos/DPTS-logo-web-version.png"}
@@ -30,11 +31,11 @@ const Footer = () => {
                     alt="Float UI logo"
                     className={`object-contain mx-auto`}
                   />
-                </a>
+                </Link>
               </div>
 
               <nav
-                className="col-span-2 md:col-span-3 lg:col-span-2"
+                className="col-span-2 md:col-span-3 lg:col-span-2 text-center lg:text-left"
                 aria-labelledby="footer-docs-5-logo"
               >
                 <h3
@@ -45,49 +46,49 @@ const Footer = () => {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Documentation
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Training
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       System status
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       FAQs
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Help Center
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
               <nav
-                className="col-span-2 md:col-span-3 lg:col-span-2"
+                className="col-span-2 md:col-span-3 lg:col-span-2 text-center lg:text-left"
                 aria-labelledby="footer-about-5-logo"
               >
                 <h3
@@ -98,49 +99,49 @@ const Footer = () => {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       About us
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Careers
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Leadership
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Events
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
               <nav
-                className="col-span-2 md:col-span-3 lg:col-span-2"
+                className="col-span-2 md:col-span-3 lg:col-span-2 text-center lg:text-left"
                 aria-labelledby="footer-get-in-touch-5-logo"
               >
                 <h3
@@ -151,51 +152,55 @@ const Footer = () => {
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Contact
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Support
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Partners
-                    </a>
+                    </Link>
                   </li>
                   <li className="mb-2 leading-6">
-                    <a
+                    <Link
                       href="#"
                       className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
                     >
                       Join research
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
             </div>
 
-            <div className={`flex w-full`}>
-              <p className={`mt-6`}>In Honour Of A Legend</p>
-              <p className={`mt-6 right-0`}>
-                Developed by EZdev Solutions (PTY) Ltd.
+            <div className={`w-full md:flex`}>
+              <p className={`mt-6 text-center md:text-left`}>
+                In Honour Of A Legend
+              </p>
+              <p className={`mt-6 grow text-center md:text-right`}>
+                Developed by{" "}
+                <Link href={"https://www.ezdev.solutions"} target={`_blank`}>
+                  EZdev Solutions (PTY) ltd
+                </Link>
               </p>
             </div>
           </div>
         </div>
       </footer>
-      {/*    <!-- End Five Columns Footer with Logo --> */}
     </>
   );
 };

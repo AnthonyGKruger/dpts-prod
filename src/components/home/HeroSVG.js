@@ -15,7 +15,7 @@ const HeroSVG = ({ onClickHandler }) => {
       viewBox="0 0 2000 2000"
       enableBackground="new 0 0 2000 2000"
       xmlSpace="preserve"
-      className={`transition-all duration-300`}
+      className={`transition-all duration-300 lg:w-full md:w-1/2 w-3/4 mx-auto`}
     >
       <path
         className={`fill-transparent`}
