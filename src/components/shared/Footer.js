@@ -35,7 +35,7 @@ const Footer = () => {
               </div>
 
               <nav
-                className="col-span-2 md:col-span-3 lg:col-span-2 text-center lg:text-left"
+                className="col-span-2 md:col-span-3 lg:col-span-2 text-center lg:text-left "
                 aria-labelledby="footer-docs-5-logo"
               >
                 <h3

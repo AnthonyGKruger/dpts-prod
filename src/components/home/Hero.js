@@ -1,12 +1,12 @@
 "use client";
 import HeroSVG from "@/components/home/HeroSVG";
 import { useState } from "react";
-
+import Heading from "@/components/shared/Heading";
 const Hero = () => {
-  const containerClasses = `py-6 place-self-center pr-10 transition-all duration-700`;
-  const headingClasses = `text-3xl text-primary-colour transition-all duration-700 text-center`;
-  const paragraphClasses = `mt-5 md:text-md lg:text-lg transition-all duration-700`;
-  const buttonContainerClasses = `w-full h-full col-span-1 flex justify-center items-center transition-all duration-300`;
+  const containerClasses = `py-6 self-center pr-10 transition-all duration-700`;
+  const headingClasses = `self-center text-3xl text-primary-colour transition-all duration-700 text-center`;
+  const paragraphClasses = `self-center mt-5 md:text-md lg:text-lg text-center lg:text-left transition-all duration-700`;
+  const buttonContainerClasses = `self-center w-full h-full col-span-1 flex justify-center items-center transition-all duration-300`;
   const buttonClasses = `md:mt-10 mt-5 md:h-12 h-9 rounded-xl bg-primary-colour md:px-6 px-3 font-base md:text-lg text-md
                 tracking-wide text-slate-50 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
                 duration-400 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
@@ -144,19 +144,15 @@ Are you concerned about the safety and integrity of your digital assets? Don't w
   return (
     <section>
       <div className="container px-6 m-auto py-20">
-        <div>
-          <h2 className={`text-center font-light text-4xl tracking-wide`}>
-            All About Enterprise Architecture
-          </h2>
-          <h2 className={`mt-5 text-center font-light text-lg`}>
-            use the clickable parts of the image to see more!
-          </h2>
-        </div>
+        <Heading
+          title={"All About Enterprise Architecture"}
+          subtitle={"Use the clickable parts of the image to see more!"}
+        />
         <div className="grid grid-cols-4 gap-6 md:grid-cols-4 lg:grid-cols-12 lg:py-10">
           <div className="col-span-4 md:col-span-4 lg:col-span-6 self-center">
             <HeroSVG onClickHandler={onClickHandler} />
           </div>
-          <div className="col-span-4 md:col-span-4 lg:col-span-6 place-items-center  md:px-20 lg:px-0">
+          <div className="col-span-4 md:col-span-4 lg:col-span-6 my-auto md:px-20 lg:px-0">
             {serviceData}
           </div>
         </div>
