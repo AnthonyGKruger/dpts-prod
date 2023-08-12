@@ -109,7 +109,7 @@ const SecondCTA = () => {
   return (
     <section>
       <div className="container  m-auto pt-14">
-        <Heading title={"Our services are all about"} />
+        <Heading title={"Some Of Our Integrated Services"} />
         <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 mt-10">
           {serviceElements}
         </div>
