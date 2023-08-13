@@ -4,6 +4,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import Heading from "@/components/shared/Heading";
+import Spinner from "@/components/shared/Spinner";
 
 const Services = () => {
   const [services, setServices] = useState(null);
@@ -36,7 +37,6 @@ const Services = () => {
                       height={300}
                     />
                   </figure>
-                  {/* Body */}
                   <div className="p-6 h-full flex flex-col">
                     <div>
                       <header className="mb-4">
@@ -50,9 +50,6 @@ const Services = () => {
                       </p>
                     </div>
                     <div className="mt-4">
-                      {/*<button className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-emerald-500 px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none">*/}
-                      {/*  <span>View More</span>*/}
-                      {/*</button>*/}
                       <Link href={`#`} className={buttonClasses}>
                         View More
                       </Link>
@@ -65,8 +62,8 @@ const Services = () => {
         );
       })
       .catch((err) => {
-        // setServices(err.message);
-        console.log(err.message);
+        setServices(null);
+        console.log(err);
       });
   };
 
@@ -80,11 +77,16 @@ const Services = () => {
         title={`Services We Offer`}
         subtitle={`Take a look at what we have to offer`}
       />
-      <div className="container px-6 m-auto mt-8">
-        <div className="grid grid-cols-4 gap-6 md:grid-cols-10 lg:grid-cols-10">
-          {services}
+
+      {services ? (
+        <div className="container px-6 m-auto mt-8">
+          <div className="grid grid-cols-4 gap-6 md:grid-cols-10 lg:grid-cols-10">
+            {services}
+          </div>
         </div>
-      </div>
+      ) : (
+        <Spinner />
+      )}
     </section>
   );
 };
