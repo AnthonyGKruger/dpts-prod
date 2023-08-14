@@ -12,8 +12,8 @@ export const metadata = {
   viewport:
     "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0",
   icons: [
-    { rel: "icon", url: "/assets/logos/DPTS-logo-web-version.png" },
-    { rel: "apple", url: "/assets/logos/DPTS-logo-web-version.png" },
+    { rel: "icon", url: "/assets/logos/favicon.png" },
+    { rel: "apple", url: "/assets/logos/favicon.png" },
   ],
 };
 
