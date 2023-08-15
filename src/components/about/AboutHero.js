@@ -38,32 +38,40 @@ const AboutHero = () => {
             </div>
           </div>
           <div className="col-span-4 lg:col-span-6 flex">
-            <div className="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 flex-grow">
-              <div className="p-6 gap-6 flex flex-col">
+            <div className="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 flex flex-grow">
+              <div className="p-6 gap-6 flex flex-col flex-grow">
                 <header className="">
                   <h3 className="text-3xl font-light text-slate-700">
-                    Industry Context
+                    About The Owner
                   </h3>
                 </header>
                 <p className={"text-lg font-light"}>
-                  The financial services and payments industry is undergoing
-                  unprecedented changes due to technological advancements,
-                  regulations, new economic powers, and consumer demands.
-                  Commerce is being fundamentally transformed, integrating
-                  technology and regulation. Payment processes are merging with
-                  broader commerce activities, as seen in cases like Uber, where
-                  payments seamlessly blend into value transfer.
+                  With a dynamic career spanning Nedbank, FNB, Multichoice,
+                  Standard Bank, PayX, and DFCU Bank, I am a seasoned Enterprise
+                  Solution Architect and Payment Consultant. My expertise in
+                  shaping payment systems and financial solutions is backed by
+                  extensive international experience.
                 </p>
                 <p className={"text-lg font-light"}>
-                  {`Customer - centric ecosystems, exemplified by companies like
-                    WeChat, Grab, and Alibaba, offer predictive insights into
-                    customer behavior, saving time, effort, and money. The future
-                    of payments will focus less on transactions and more on
-                    data-rich interactions, forming the basis for these
-                    ecosystems' success. Financial institutions are adapting to
-                    provide strategic and value-added solutions within the broader
-                    commercial context.`}
+                  {`If you're looking to transform your payment strategies,
+                    enhance customer experiences, or innovate in the finance
+                    industry, let's connect. Together, we can shape the future of
+                    payments.`}
                 </p>
+                <Link
+                  href={
+                    "https://www.linkedin.com/in/johan-kruger-a4a731a?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Beg4Em1NGTNy68Z4U3g3bMw%3D%3D"
+                  }
+                  target={"_blank"}
+                  className={
+                    " my-auto h-14 rounded-xl bg-primary-colour md:px-6 px-3 font-base  text-md" +
+                    " tracking-wide text-slate-50 hover:text-slate-800 shadow-lg shadow-secondary-colour border border-white/50 " +
+                    "hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour hover:scale-105 hover:border-accent-colour" +
+                    " transition-all duration-500  w-fit py-4 "
+                  }
+                >
+                  Contact Us
+                </Link>
               </div>
             </div>
           </div>
