@@ -82,7 +82,7 @@ const NavBar = () => {
   return (
     <>
       <nav
-        className={`sticky top-0 z-20 w-full md:text-sm md:border-none bg-background-colour ${
+        className={`sticky top-0 z-20 w-full md:text-sm lg:text-md md:border-none bg-background-colour ${
           state ? "shadow-lg" + " rounded-b-xl" + " md:shadow-none" : ""
         }`}
       >
@@ -142,7 +142,7 @@ const NavBar = () => {
                   <li key={idx}>
                     {item.isDropdown ? (
                       <button
-                        className="w-full flex items-center justify-between gap-1 text-gray-700 hover:text-indigo-600"
+                        className="w-full flex items-center justify-between gap-1 text-gray-700 hover:text-indigo-600  xl:text-lg"
                         onClick={() =>
                           setDropdownState({
                             idx,
@@ -182,7 +182,7 @@ const NavBar = () => {
                     ) : (
                       <a
                         href={item.path}
-                        className="block text-gray-700 hover:text-indigo-600"
+                        className="block text-gray-700 hover:text-indigo-600  xl:text-lg"
                       >
                         {item.title}
                       </a>
@@ -195,7 +195,7 @@ const NavBar = () => {
                           {/*<ul className="max-w-screen-xl mx-auto grid items-center gap-6 md:p-8 md:grid-cols-2 lg:grid-cols-3">*/}
                           {item?.navs.map((dropdownItem, idx) => (
                             <li key={idx}>
-                              <p className="text-indigo-600 text-sm">
+                              <p className="text-indigo-600 text-sm lg:text-md">
                                 {dropdownItem.label}
                               </p>
                               <ul className="mt-5 space-y-6">
@@ -209,10 +209,10 @@ const NavBar = () => {
                                         {navItem.icon}
                                       </div>
                                       <div>
-                                        <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm font-medium md:text-base">
+                                        <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm lg:text-md font-medium md:text-base">
                                           {navItem.title}
                                         </span>
-                                        <p className="text-sm text-gray-600 group-hover:text-gray-800 mt-1">
+                                        <p className="text-sm lg:text-md text-gray-600 group-hover:text-gray-800 mt-1">
                                           {navItem.desc}
                                         </p>
                                       </div>
