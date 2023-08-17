@@ -89,15 +89,16 @@ const Form = () => {
     );
   };
 
-  const inputClasses = `peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent 
-    outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-primary-colour
+  const inputClasses = `peer relative h-10 w-full rounded border  px-4 text-sm text-slate-500 placeholder-transparent 
+    outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 
      focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed 
      disabled:bg-slate-50 disabled:text-slate-400`;
-  const labelClasses = `absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 
+
+  const labelClasses = `absolute left-2 -top-2 z-[1] cursor-text px-2 text-xs  transition-all before:absolute before:top-0 
     before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all 
     peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 
     peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:cursor-default
-     peer-focus:text-xs peer-focus:text-primary-colour peer-invalid:peer-focus:text-pink-500 
+     peer-focus:text-xs  peer-invalid:peer-focus:text-pink-500 
      peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent`;
 
   return (
@@ -117,12 +118,12 @@ const Form = () => {
           inputClasses={`${inputClasses} ${
             state.inputHasError.nameHasError
               ? "border-pink-500 text-pink-500 focus:border-pink-500"
-              : ""
+              : "focus:border-primary-colour border-slate-200"
           }`}
           labelClasses={`${labelClasses} ${
             state.inputHasError.nameHasError
               ? "text-pink-500 peer-focus:text-pink-500"
-              : ""
+              : "peer-focus:text-primary-colour text-slate-400"
           }`}
           label={"Your Name"}
         />
@@ -136,12 +137,12 @@ const Form = () => {
           inputClasses={`${inputClasses} ${
             state.inputHasError.surnameHasError
               ? "border-pink-500 text-pink-500 focus:border-pink-500"
-              : ""
+              : "focus:border-primary-colour border-slate-200"
           }`}
           labelClasses={`${labelClasses} ${
             state.inputHasError.surnameHasError
               ? "text-pink-500 peer-focus:text-pink-500"
-              : ""
+              : "peer-focus:text-primary-colour text-slate-400"
           }`}
           label={"Your Surname"}
         />
@@ -155,12 +156,12 @@ const Form = () => {
           inputClasses={`${inputClasses} ${
             state.inputHasError.emailHasError
               ? "border-pink-500 text-pink-500 focus:border-pink-500"
-              : ""
+              : "focus:border-primary-colour border-slate-200"
           }`}
           labelClasses={`${labelClasses} ${
             state.inputHasError.emailHasError
               ? "text-pink-500 peer-focus:text-pink-500"
-              : ""
+              : "peer-focus:text-primary-colour text-slate-400"
           }`}
           label={"Your Email"}
         />
@@ -174,12 +175,12 @@ const Form = () => {
           inputClasses={`${inputClasses} ${
             state.inputHasError.companyHasError
               ? "border-pink-500 text-pink-500 focus:border-pink-500"
-              : ""
+              : "focus:border-primary-colour border-slate-200"
           }`}
           labelClasses={`${labelClasses} ${
             state.inputHasError.companyHasError
               ? "text-pink-500 peer-focus:text-pink-500"
-              : ""
+              : "peer-focus:text-primary-colour text-slate-400"
           }`}
           label={"Your Business Name (Optional)"}
         />
