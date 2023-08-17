@@ -3,13 +3,13 @@ const Heading = ({ title, subtitle }) => {
     <div className={"py-10"}>
       {title && (
         <h2
-          className={`text-center font-light text-4xl xl:text-5xl tracking-wide`}
+          className={`text-center font-light text-3xl xl:text-4xl tracking-wide`}
         >
           {title}
         </h2>
       )}
       {subtitle && (
-        <h2 className={`mt-5 text-center font-light text-lg xl:text-2xl`}>
+        <h2 className={`mt-5 text-center font-light text-lg xl:text-xl`}>
           {subtitle}
         </h2>
       )}

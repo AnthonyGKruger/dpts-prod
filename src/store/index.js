@@ -7,7 +7,7 @@ import contactSlice from "@/store/contact-slice";
 // Configuring the Redux store
 const store = configureStore({
   reducer: {
-    contactMe: contactSlice.reducer, // Adding the contactSlice reducer under the 'contactMe' key
+    contact: contactSlice.reducer, // Adding the contactSlice reducer under the 'contactMe' key
   },
 });
 

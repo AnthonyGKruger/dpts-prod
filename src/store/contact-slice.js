@@ -22,7 +22,7 @@ export const validateString = (str) => {
 
 // Creating the contactSlice using createSlice from Redux Toolkit
 const contactSlice = createSlice({
-  name: "contactMe",
+  name: "contact",
   initialState: {
     mailSending: false, // Indicates if the email is being sent
     mailSent: false, // Indicates if the email has been successfully sent
@@ -30,6 +30,7 @@ const contactSlice = createSlice({
     formHasErrors: false, // Indicates if the form has validation errors
     inputHasError: {
       nameHasError: false, // Indicates if the name field has validation error
+      surnameHasError: false, // Indicates if the surname field has validation error
       emailHasError: false, // Indicates if the email field has validation error
       companyHasError: false, // Indicates if the company field has validation error
       commentsHasError: false, // Indicates if the comments field has validation error
@@ -47,17 +48,25 @@ const contactSlice = createSlice({
       const inputValue = action.payload.value;
 
       switch (inputName) {
-        case "from_name":
+        case "name":
           // Validating the name input
           state.inputHasError.nameHasError = !validateName(inputValue.trim());
           break;
-        case "reply_to":
+        case "surname":
+          // Validating the surname input
+          state.inputHasError.surnameHasError = !validateName(
+            inputValue.trim(),
+          );
+          break;
+        case "email":
           // Validating the email input
-          state.inputHasError.emailHasError = !validateEmail(inputValue);
+          state.inputHasError.emailHasError = !validateEmail(inputValue.trim());
           break;
         case "company":
           // Validating the company input
-          state.inputHasError.companyHasError = !validateString(inputValue);
+          state.inputHasError.companyHasError = !validateString(
+            inputValue.trim(),
+          );
           break;
         case "comments":
           // Validating the comments input
@@ -74,6 +83,7 @@ const contactSlice = createSlice({
       // Update the formHasErrors flag based on individual input errors
       state.formHasErrors =
         state.inputHasError.nameHasError ||
+        state.inputHasError.surnameHasError ||
         state.inputHasError.emailHasError ||
         state.inputHasError.companyHasError ||
         state.inputHasError.commentsHasError;
@@ -91,6 +101,6 @@ const contactSlice = createSlice({
   },
 });
 
-export const contactMeActions = contactSlice.actions;
+export const contactActions = contactSlice.actions;
 
 export default contactSlice;

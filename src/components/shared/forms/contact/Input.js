@@ -17,7 +17,7 @@ const Input = ({
         type={type}
         name={name}
         placeholder={placeholder}
-        value={""}
+        // value={""}
         className={inputClasses}
         onChange={handleChange}
       />
