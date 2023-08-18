@@ -98,6 +98,11 @@ const contactSlice = createSlice({
     formErrorHandler(state, action) {
       state.formHasErrors = action.payload.formHasErrors;
     },
+
+    // Reducer to handle overall form validation errors
+    formSentHandler(state, action) {
+      state.mailSent = action.payload.mailSent;
+    },
   },
 });
 
