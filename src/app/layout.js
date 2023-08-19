@@ -1,8 +1,8 @@
 import "./globals.css";
 import { Roboto } from "next/font/google";
-import NavBar from "@/components/shared/NavBar";
 import Footer from "@/components/shared/Footer";
 import CookieBanner from "@/components/shared/CookieBanner";
+import NavWithStore from "@/components/shared/NavWithStore";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${roboto.className} text-text-colour bg-background-colour`}
       >
-        <NavBar />
+        <NavWithStore />
         {children}
         <Footer />
         <CookieBanner />

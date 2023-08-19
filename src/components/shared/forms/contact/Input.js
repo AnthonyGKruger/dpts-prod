@@ -5,7 +5,7 @@ const Input = ({
   type,
   name,
   placeholder,
-  value,
+
   inputClasses,
   labelClasses,
   label,
@@ -17,7 +17,6 @@ const Input = ({
         type={type}
         name={name}
         placeholder={placeholder}
-        // value={""}
         className={inputClasses}
         onChange={handleChange}
       />

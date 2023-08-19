@@ -8,6 +8,7 @@ import {
   TbTransformFilled,
 } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
+import LoginModal from "@/components/shared/forms/login/LoginModal";
 
 const dropdownNavs = [
   {
@@ -67,8 +68,6 @@ const NavBar = () => {
   const navigation = [
     { title: "Services", path: "#", isDropdown: true, navs: dropdownNavs },
     { title: "About", path: "/about", isDropdown: false },
-    { title: "Customers", path: "#", isDropdown: false },
-    { title: "Pricing", path: "#", isDropdown: false },
   ];
 
   useEffect(() => {
@@ -212,9 +211,9 @@ const NavBar = () => {
                                         <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm lg:text-md font-medium md:text-base">
                                           {navItem.title}
                                         </span>
-                                        <p className="text-sm lg:text-md text-gray-600 group-hover:text-gray-800 mt-1">
-                                          {navItem.desc}
-                                        </p>
+                                        {/*<p className="text-sm lg:text-md text-gray-600 group-hover:text-gray-800 mt-1">*/}
+                                        {/*  {navItem.desc}*/}
+                                        {/*</p>*/}
                                       </div>
                                     </a>
                                   </li>
@@ -236,16 +235,11 @@ const NavBar = () => {
                     href="#"
                     className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
                   >
-                    Log in
+                    Register
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
-                  >
-                    Sign in
-                  </a>
+                  <LoginModal />
                 </li>
               </div>
             </ul>

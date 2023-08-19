@@ -102,60 +102,11 @@ const Form = () => {
      peer-focus:text-xs  peer-invalid:peer-focus:text-pink-500 
      peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent`;
 
-  // const errorModal = Object.entries(state.inputHasError).forEach(
-  //   ([key, value]) => {
-  //     console.log(`${key}: ${value}`);
-  //   },
-  // );
-
-  const errorModal = Object.entries(state.inputHasError).map((error, idx) => {
-    if (error[1]) {
-      switch (error[0]) {
-        case "nameHasError":
-          return (
-            <ErrorModal key={idx} errorMessage={"Please enter a valid name!"} />
-          );
-
-        case "surnameHasError":
-          return (
-            <ErrorModal
-              key={idx}
-              errorMessage={"Please enter a valid surname!"}
-            />
-          );
-
-        case "emailHasError":
-          return (
-            <ErrorModal
-              key={idx}
-              errorMessage={"Please enter a valid email!"}
-            />
-          );
-
-        case "companyHasError":
-          return (
-            <ErrorModal
-              key={idx}
-              errorMessage={"Please enter a valid company name!"}
-            />
-          );
-
-        case "commentsHasError":
-          return (
-            <ErrorModal key={idx} errorMessage={"Comments field is invalid"} />
-          );
-
-        default:
-          return (
-            <ErrorModal key={idx} errorMessage={"Something went wrong..."} />
-          );
-      }
-    }
-  });
-
   return (
     <>
-      {errorModal && errorModal}
+      {state.formHasError && (
+        <ErrorModal errorMessage={"Something went wrong..."} />
+      )}
       {state.mailSent ? (
         <SuccessModal message={"Success! We will contact you shortly!"} />
       ) : (
@@ -164,7 +115,15 @@ const Form = () => {
           onSubmit={handleSubmit}
           className="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200"
         >
+          <h2
+            className={"text-center mt-8 text-accent-colour text-2xl font-thin"}
+          >
+            Contact Us
+          </h2>
           <div className="p-6">
+            {state.inputHasError.nameHasError && (
+              <ErrorModal errorMessage={"Please enter a valid name!"} />
+            )}
             <Input
               handleChange={handleChange}
               id={"name"}
@@ -184,6 +143,9 @@ const Form = () => {
               }`}
               label={"Your Name"}
             />
+            {state.inputHasError.surnameHasError && (
+              <ErrorModal errorMessage={"Please enter a valid surname!"} />
+            )}
             <Input
               handleChange={handleChange}
               id={"surname"}
@@ -203,6 +165,9 @@ const Form = () => {
               }`}
               label={"Your Surname"}
             />
+            {state.inputHasError.emailHasError && (
+              <ErrorModal errorMessage={"Please enter a valid email!"} />
+            )}
             <Input
               handleChange={handleChange}
               id={"email"}
@@ -222,6 +187,9 @@ const Form = () => {
               }`}
               label={"Your Email"}
             />
+            {state.inputHasError.companyHasError && (
+              <ErrorModal errorMessage={"Please enter a valid company name!"} />
+            )}
             <Input
               handleChange={handleChange}
               id={"company"}
@@ -241,6 +209,9 @@ const Form = () => {
               }`}
               label={"Your Business Name (Optional)"}
             />
+            {state.inputHasError.commentsHasError && (
+              <ErrorModal errorMessage={"Comments field is invalid"} />
+            )}
             <TextArea
               id={"comments"}
               name={"comments"}
@@ -269,9 +240,6 @@ const Form = () => {
                       disabled:bg-slate-50 disabled:text-slate-400`}
                 name={"submit"}
                 disabled={state.formHasErrors}
-                onClickHandler={() => {
-                  console.log("clicked");
-                }}
               />
             )}
           </div>
