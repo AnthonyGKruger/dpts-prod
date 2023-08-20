@@ -6,6 +6,15 @@ import {
   validateString,
 } from "@/store/contact-slice";
 
+const validatePassword = (password) => {
+  // Regular expression pattern to match the criteria
+  const pattern =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+
+  // Test the password against the pattern
+  return pattern.test(password);
+};
+
 // Creating the contactSlice using createSlice from Redux Toolkit
 const userSlice = createSlice({
   name: "user",
@@ -15,54 +24,44 @@ const userSlice = createSlice({
     surname: "",
     email: "",
     password: "",
+    confirmPassword: "",
+    inputHasError: {
+      emailHasError: false,
+      passwordHasError: false,
+      confirmPasswordHasError: false,
+    },
+    error: false,
   },
   reducers: {
     // Reducer to handle input field changes and validation
-    // inputChangeHandler(state, action) {
-    //   const inputName = action.payload.name;
-    //   const inputValue = action.payload.value;
-    //
-    //   switch (inputName) {
-    //     case "name":
-    //       // Validating the name input
-    //       state.inputHasError.nameHasError = !validateName(inputValue.trim());
-    //       break;
-    //     case "surname":
-    //       // Validating the surname input
-    //       state.inputHasError.surnameHasError = !validateName(
-    //         inputValue.trim(),
-    //       );
-    //       break;
-    //     case "email":
-    //       // Validating the email input
-    //       state.inputHasError.emailHasError = !validateEmail(inputValue.trim());
-    //       break;
-    //     case "company":
-    //       // Validating the company input
-    //       state.inputHasError.companyHasError = !validateString(
-    //         inputValue.trim(),
-    //       );
-    //       break;
-    //     case "comments":
-    //       // Validating the comments input
-    //       state.inputHasError.commentsHasError = !validateString(inputValue);
-    //       break;
-    //     default:
-    //       return;
-    //   }
-    //
-    //   // Update the input value in the state and reset error flag
-    //   state[inputName] = inputValue;
-    //   state.error = false;
-    //
-    //   // Update the formHasErrors flag based on individual input errors
-    //   state.formHasErrors =
-    //     state.inputHasError.nameHasError ||
-    //     state.inputHasError.surnameHasError ||
-    //     state.inputHasError.emailHasError ||
-    //     state.inputHasError.companyHasError ||
-    //     state.inputHasError.commentsHasError;
-    // },
+    inputChangeHandler(state, action) {
+      const inputName = action.payload.name;
+      const inputValue = action.payload.value;
+
+      switch (inputName) {
+        case "email":
+          // Validating the email input
+          validateEmail(inputValue.trim())
+            ? (state.email = inputValue)
+            : (state.inputHasError.emailHasError = true);
+          break;
+        case "password":
+          // Validating the password input
+          validatePassword(inputValue.trim())
+            ? (state.password = inputValue)
+            : (state.inputHasError.passwordHasError = true);
+          break;
+        case "confirmPassword":
+          // Validating the confirmation password input
+          validatePassword(inputValue.trim())
+            ? (state.confirmPassword = inputValue)
+            : (state.inputHasError.confirmPasswordHasError = true);
+          break;
+        default:
+          return;
+      }
+    },
+
     // Reducer to handle form submission errors
     // errorHandler(state, action) {
     //   state.error = action.payload.isError;

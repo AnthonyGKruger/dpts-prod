@@ -9,6 +9,7 @@ import {
 } from "react-icons/tb";
 import { IoBusinessSharp } from "react-icons/io5";
 import LoginModal from "@/components/shared/forms/login/LoginModal";
+import RegisterModal from "@/components/shared/forms/signup/RegisterModal";
 
 const dropdownNavs = [
   {
@@ -235,7 +236,7 @@ const NavBar = () => {
                     href="#"
                     className="block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none"
                   >
-                    Register
+                    <RegisterModal />
                   </a>
                 </li>
                 <li>
