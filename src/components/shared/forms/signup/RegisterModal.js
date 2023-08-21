@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
+import axios from "axios";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
@@ -86,14 +87,36 @@ const RegisterModal = () => {
     );
   };
 
+  const hashPasswordHandler = async (password) => {
+    await dispatch(userActions.hashPasswordAsync(password));
+  };
+
   const submitHandler = async () => {
     // const hashingResponse = await dispatch(
     //   userActions.hashPasswordAsync(state.password),
     // );
     // const hashedPassword = hashingResponse.payload;
     // console.log(hashedPassword);
-
-    await dispatch(userActions.hashPasswordAsync(state.password));
+    if (
+      !state.error &&
+      state.name !== "" &&
+      state.email !== "" &&
+      state.password !== "" &&
+      state.confirmPassword !== ""
+    ) {
+      await hashPasswordHandler(state.password);
+      await axios.post(
+        `${process.env.NEXT_PUBLIC_CMS_BASE_URL}/api/dpts-users`,
+        {
+          data: {
+            name: state.name,
+            surname: state.surname,
+            email: state.email,
+            password: state.password,
+          },
+        },
+      );
+    }
   };
 
   return (
