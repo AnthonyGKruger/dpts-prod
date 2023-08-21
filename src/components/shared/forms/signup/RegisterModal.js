@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-// import useBcrypt from "@/hooks/useBcrypt";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state.user);
 
   const [isShowing, setIsShowing] = useState(false);
 
@@ -78,7 +78,6 @@ const RegisterModal = () => {
   }, [isShowing]);
 
   const handleChange = (event) => {
-    // Need to use bcrypt here
     dispatch(
       userActions.inputChangeHandler({
         value: event.target.value,
@@ -87,7 +86,15 @@ const RegisterModal = () => {
     );
   };
 
-  // const bcrypt = useBcrypt();
+  const submitHandler = async () => {
+    // const hashingResponse = await dispatch(
+    //   userActions.hashPasswordAsync(state.password),
+    // );
+    // const hashedPassword = hashingResponse.payload;
+    // console.log(hashedPassword);
+
+    await dispatch(userActions.hashPasswordAsync(state.password));
+  };
 
   return (
     <>
@@ -117,7 +124,7 @@ const RegisterModal = () => {
                 {/*        <!-- Modal header --> */}
                 <header id="header-4a" className="flex items-center">
                   <h3 className="flex-1 text-lg font-medium text-slate-700">
-                    Welcome! Please fill in the form below to register
+                    Welcome! Register below
                   </h3>
                   <button
                     onClick={() => setIsShowing(false)}
@@ -152,14 +159,53 @@ const RegisterModal = () => {
                     {/*                <!-- Input field --> */}
                     <div className="relative">
                       <input
-                        id="email"
-                        type="email"
-                        name="id-b03"
-                        placeholder="your email"
+                        id="registrationName"
+                        type="text"
+                        name="registrationName"
+                        placeholder="your name"
                         className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        onChange={handleChange}
                       />
                       <label
-                        htmlFor="email"
+                        htmlFor="registrationName"
+                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                      >
+                        Your name
+                      </label>
+                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                        <span>Type your name</span>
+                      </small>
+                    </div>
+                    <div className="relative my-6">
+                      <input
+                        id="registrationSurname"
+                        type="text"
+                        name="registrationSurname"
+                        placeholder="your surname"
+                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        onChange={handleChange}
+                      />
+                      <label
+                        htmlFor="registrationSurname"
+                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                      >
+                        Your surname
+                      </label>
+                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                        <span>Type your surname</span>
+                      </small>
+                    </div>
+                    <div className="relative">
+                      <input
+                        id="registrationEmail"
+                        type="email"
+                        name="registrationEmail"
+                        placeholder="your email"
+                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        onChange={handleChange}
+                      />
+                      <label
+                        htmlFor="registrationEmail"
                         className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
                       >
                         Your email
@@ -176,6 +222,7 @@ const RegisterModal = () => {
                         name="password"
                         placeholder="your password"
                         className="peer relative h-10 w-full rounded border border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        onChange={handleChange}
                       />
                       <label
                         htmlFor="password"
@@ -208,6 +255,7 @@ const RegisterModal = () => {
                         name="confirmPassword"
                         placeholder="confirm password"
                         className="peer relative h-10 w-full rounded border border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        onChange={handleChange}
                       />
                       <label
                         htmlFor="confirmPassword"
@@ -238,7 +286,11 @@ const RegisterModal = () => {
 
                 {/*        <!-- Modal actions --> */}
                 <div className="flex justify-center gap-2">
-                  <button className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none">
+                  <button
+                    disabled={state.error}
+                    onClick={submitHandler}
+                    className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
+                  >
                     <span>Register</span>
                   </button>
                 </div>
