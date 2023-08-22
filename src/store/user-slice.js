@@ -1,21 +1,31 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { validateEmail, validateName } from "@/store/contact-slice";
 import bcrypt from "bcryptjs";
+import axios from "axios";
 
-// Hash the password using bcrypt
-const hashPassword = async (password) => {
-  return await bcrypt.hash(password, 10);
-};
+// const hashPassword = async (password) => {
+//   return await bcrypt.hash(password, 10);
+// };
 
 // Create a thunk action for hashing the password
 export const hashPasswordAsync = createAsyncThunk(
   "user/hashPassword",
   async (password) => {
-    return await hashPassword(password);
+    return await bcrypt.hash(password, 10);
+    // return await hashPassword(password);
   },
 );
 
-// ... (your other code remains the same)
+// Create a thunk action for registering the user
+export const registerHandler = createAsyncThunk(
+  "user/register",
+  async (user) => {
+    await axios.post("/api/user/register/", user).then((response) => {
+      console.log(response.statusText);
+    });
+  },
+);
+
 const comparePassword = (password, hashedPassword) => {
   return bcrypt.compare(password, hashedPassword).then((result) => {
     return result;
@@ -122,15 +132,29 @@ const userSlice = createSlice({
       state.password = action.payload;
       state.inputHasError.passwordHasError = false;
       state.confirmPassword = "";
+
+      // const user = {
+      //   name: state.name,
+      //   surname: state.surname,
+      //   email: state.email,
+      //   password: action.payload,
+      // };
+
+      // registerHandler(user);
     });
+
+    builder.addCase(hashPasswordAsync.rejected, (action) => {
+      console.log(action);
+    });
+
+    builder.addCase(registerHandler.fulfilled, (state, action) => {});
   },
 });
-
-// ... (your other code remains the same)
 
 export const userActions = {
   ...userSlice.actions,
   hashPasswordAsync, // Export the hashPasswordAsync thunk action
+  registerHandler,
 };
 
 export default userSlice;

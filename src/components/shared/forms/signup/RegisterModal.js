@@ -87,16 +87,7 @@ const RegisterModal = () => {
     );
   };
 
-  const hashPasswordHandler = async (password) => {
-    await dispatch(userActions.hashPasswordAsync(password));
-  };
-
   const submitHandler = async () => {
-    // const hashingResponse = await dispatch(
-    //   userActions.hashPasswordAsync(state.password),
-    // );
-    // const hashedPassword = hashingResponse.payload;
-    // console.log(hashedPassword);
     if (
       !state.error &&
       state.name !== "" &&
@@ -104,18 +95,16 @@ const RegisterModal = () => {
       state.password !== "" &&
       state.confirmPassword !== ""
     ) {
-      await hashPasswordHandler(state.password);
-      await axios.post(
-        `${process.env.NEXT_PUBLIC_CMS_BASE_URL}/api/dpts-users`,
-        {
-          data: {
-            name: state.name,
-            surname: state.surname,
-            email: state.email,
-            password: state.password,
-          },
-        },
-      );
+      await dispatch(userActions.hashPasswordAsync(state.password));
+
+      const user = {
+        name: state.name,
+        surname: state.surname,
+        email: state.email,
+        password: state.password,
+      };
+
+      await dispatch(userActions.registerHandler(user));
     }
   };
 
