@@ -50,6 +50,9 @@ const userSlice = createSlice({
     email: "",
     password: "",
     confirmPassword: "",
+    passwordsMatch: false,
+    userAlreadyRegistered: false,
+    confirmingPasswordWithoutPassword: false,
     inputHasError: {
       emailHasError: false,
       passwordHasError: false,
@@ -100,20 +103,71 @@ const userSlice = createSlice({
           state.password = inputValue;
           state.password = inputValue;
           state.inputHasError.passwordHasError = false;
+          state.confirmingPasswordWithoutPassword = false;
+          if (state.confirmPassword === "") {
+            state.confirmingPasswordWithoutPassword = false;
+          }
+          if (state.confirmPassword === state.confirmPassword) {
+            state.passwordsMatch = true;
+            state.error = false;
+          } else {
+            state.passwordsMatch = false;
+            state.error = true;
+          }
         } else {
           state.password = inputValue;
           state.inputHasError.passwordHasError = true;
           state.error = true;
+          state.confirmingPasswordWithoutPassword = false;
+          if (state.confirmPassword === "") {
+            state.confirmingPasswordWithoutPassword = false;
+          }
+          if (state.password === state.confirmPassword) {
+            state.passwordsMatch = true;
+          } else if (state.confirmPassword !== "") {
+            state.passwordsMatch = false;
+          }
         }
       } else if (inputName === "confirmPassword") {
         // Validating the confirmation password input
         if (validatePassword(inputValue.trim())) {
-          state.confirmPassword = inputValue;
-          state.inputHasError.confirmPasswordHasError = false;
+          if (state.password === "") {
+            state.confirmingPasswordWithoutPassword = true;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = false;
+            state.error = true;
+          } else if (state.password !== state.confirmPassword) {
+            state.passwordsMatch = false;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = false;
+            state.error = true;
+          } else {
+            state.passwordsMatch = true;
+            state.confirmingPasswordWithoutPassword = false;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = false;
+          }
         } else {
-          state.confirmPassword = inputValue;
-          state.inputHasError.confirmPasswordHasError = true;
-          state.error = true;
+          if (state.password === "") {
+            state.confirmingPasswordWithoutPassword = true;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = true;
+            state.error = true;
+          } else if (
+            state.password !== state.confirmPassword &&
+            state.confirmPassword !== ""
+          ) {
+            state.passwordsMatch = false;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = true;
+            state.error = true;
+          } else {
+            state.confirmingPasswordWithoutPassword = false;
+            state.confirmPassword = inputValue;
+            state.inputHasError.confirmPasswordHasError = true;
+            state.error = true;
+            state.passwordsMatch = true;
+          }
         }
       }
 

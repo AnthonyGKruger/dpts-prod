@@ -228,7 +228,7 @@ const RegisterModal = () => {
                     )}
                     <div
                       className={`relative ${
-                        state.inputHasError.surnameHasError ? "" : "my-6"
+                        state.inputHasError.surnameHasError ? "my-2" : "my-6"
                       }`}
                     >
                       <input
@@ -306,12 +306,15 @@ const RegisterModal = () => {
                     {/*                <!-- Input field --> */}
                     {state.inputHasError.passwordHasError && (
                       <ErrorModal
-                        errorMessage={"Please enter a valid password."}
+                        errorMessage={
+                          "Please enter a password matching the following criteria: a mix of uppercase and lowercase" +
+                          " letters, numbers, and special characters."
+                        }
                       />
                     )}
                     <div
                       className={`relative ${
-                        state.inputHasError.passwordHasError ? "" : "my-6"
+                        state.inputHasError.passwordHasError ? "my-2" : "my-6"
                       }`}
                     >
                       <input
@@ -364,10 +367,24 @@ const RegisterModal = () => {
                         <span>Type your password</span>
                       </small>
                     </div>
-                    {state.inputHasError.confirmPasswordHasError && (
+                    {/*{state.inputHasError.confirmPasswordHasError && (*/}
+                    {/*  <ErrorModal*/}
+                    {/*    errorMessage={*/}
+                    {/*      "Please enter a valid password that matches your initial password."*/}
+                    {/*    }*/}
+                    {/*  />*/}
+                    {/*)}*/}
+                    {!state.passwordsMatch ||
+                      (state.confirmPassword !== "" &&
+                        state.password !== "" && (
+                          <ErrorModal
+                            errorMessage={"Passwords are not matching..."}
+                          />
+                        ))}
+                    {state.confirmingPasswordWithoutPassword && (
                       <ErrorModal
                         errorMessage={
-                          "Please enter a valid password that matches your initial password."
+                          "Please enter password before confirming your password."
                         }
                       />
                     )}
