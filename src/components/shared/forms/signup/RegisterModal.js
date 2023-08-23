@@ -2,14 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
-import axios from "axios";
+
+import ErrorModal from "@/components/shared/forms/ErrorModal";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
 
   const [isShowing, setIsShowing] = useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const wrapperRef = useRef(null);
 
   useEffect(() => {
@@ -108,6 +110,19 @@ const RegisterModal = () => {
     }
   };
 
+  const inputClasses = `peer relative h-10 w-full rounded border px-4 text-sm text-slate-500 
+                        placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 
+                        invalid:text-pink-500  focus:outline-none invalid:focus:border-pink-500 
+                        disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400`;
+  const labelClasses = `absolute left-2 -top-2 z-[1] px-2 text-xs  transition-all before:absolute
+                        before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white
+                        before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm
+                        peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500
+                        peer-focus:-top-2 peer-focus:text-xs  peer-invalid:peer-focus:text-pink-500
+                        peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent`;
+
+  const spanClasses = `absolute flex w-full justify-between px-4 py-1 text-xs  transition peer-invalid:text-pink-500`;
+
   return (
     <>
       <button
@@ -121,7 +136,7 @@ const RegisterModal = () => {
         ? ReactDOM.createPortal(
             <div
               className="fixed top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-slate-300/20 backdrop-blur-sm"
-              aria-labelledby="header-4a content-4a"
+              aria-labelledby="register modal backdrop"
               aria-modal="true"
               tabIndex="-1"
               role="dialog"
@@ -129,12 +144,12 @@ const RegisterModal = () => {
               {/*    <!-- Modal --> */}
               <div
                 ref={wrapperRef}
-                className="flex h-fit lg:w-1/3 w-2/3 flex-col gap-4 overflow-hidden rounded bg-white p-6 text-slate-500 shadow-xl shadow-slate-700/10"
+                className="flex h-fit lg:w-1/3 w-2/3 flex-col gap-4 overflow-hidden rounded-xl bg-white p-6 text-slate-500 shadow-xl shadow-slate-700/10"
                 id="modal"
-                role="document"
+                role="Register"
               >
                 {/*        <!-- Modal header --> */}
-                <header id="header-4a" className="flex items-center">
+                <header id="register-header" className="flex items-center">
                   <h3 className="flex-1 text-lg font-medium text-slate-700">
                     Welcome! Register below
                   </h3>
@@ -169,76 +184,156 @@ const RegisterModal = () => {
                 <div id="content-4a" className="flex-1">
                   <div className="flex flex-col gap-6">
                     {/*                <!-- Input field --> */}
+                    {state.inputHasError.nameHasError && (
+                      <ErrorModal errorMessage={"Please enter a valid name."} />
+                    )}
                     <div className="relative">
                       <input
                         id="registrationName"
                         type="text"
                         name="registrationName"
                         placeholder="your name"
-                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        className={`${inputClasses} ${
+                          state.inputHasError.nameHasError
+                            ? "border-pink-500 text-pink-500 peer:text-pink-500"
+                            : "focus:border-primary-colour border-slate-200 "
+                        }`}
                         onChange={handleChange}
                       />
                       <label
                         htmlFor="registrationName"
-                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        className={` ${labelClasses}
+                            ${
+                              state.inputHasError.nameHasError
+                                ? "peer-focus:text-pink-500 text-pink-500 "
+                                : "peer-focus:text-primary-colour text-slate-400"
+                            }`}
                       >
                         Your name
                       </label>
-                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                      <small
+                        className={`${spanClasses} ${
+                          state.inputHasError.nameHasError
+                            ? "text-pink-500"
+                            : "text-slate-400 peer-focus:text-primary-colour"
+                        }`}
+                      >
                         <span>Type your name</span>
                       </small>
                     </div>
-                    <div className="relative my-6">
+                    {state.inputHasError.surnameHasError && (
+                      <ErrorModal
+                        errorMessage={"Please enter a valid surname."}
+                      />
+                    )}
+                    <div
+                      className={`relative ${
+                        state.inputHasError.surnameHasError ? "" : "my-6"
+                      }`}
+                    >
                       <input
                         id="registrationSurname"
                         type="text"
                         name="registrationSurname"
                         placeholder="your surname"
-                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        className={`${inputClasses} ${
+                          state.inputHasError.surnameHasError
+                            ? "border-pink-500 text-pink-500"
+                            : "focus:border-primary-colour border-slate-200"
+                        }`}
                         onChange={handleChange}
                       />
                       <label
                         htmlFor="registrationSurname"
-                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        className={` ${labelClasses}
+                            ${
+                              state.inputHasError.surnameHasError
+                                ? "peer-focus:text-pink-500 text-pink-500"
+                                : "peer-focus:text-primary-colour text-slate-400"
+                            }`}
                       >
                         Your surname
                       </label>
-                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                      <small
+                        className={`${spanClasses} ${
+                          state.inputHasError.surnameHasError
+                            ? "text-pink-500"
+                            : "text-slate-400 peer-focus:text-primary-colour"
+                        }`}
+                      >
                         <span>Type your surname</span>
                       </small>
                     </div>
+                    {state.inputHasError.emailHasError && (
+                      <ErrorModal
+                        errorMessage={"Please enter a valid email."}
+                      />
+                    )}
                     <div className="relative">
                       <input
                         id="registrationEmail"
                         type="email"
                         name="registrationEmail"
                         placeholder="your email"
-                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        className={`${inputClasses} ${
+                          state.inputHasError.emailHasError
+                            ? "border-pink-500 text-pink-500"
+                            : "focus:border-primary-colour border-slate-200"
+                        }`}
                         onChange={handleChange}
                       />
                       <label
                         htmlFor="registrationEmail"
-                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        className={` ${labelClasses}
+                            ${
+                              state.inputHasError.emailHasError
+                                ? "peer-focus:text-pink-500 text-pink-500"
+                                : "peer-focus:text-primary-colour text-slate-400"
+                            }`}
                       >
                         Your email
                       </label>
-                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                      <small
+                        className={`${spanClasses} ${
+                          state.inputHasError.emailHasError
+                            ? "text-pink-500"
+                            : "text-slate-400 peer-focus:text-primary-colour"
+                        }`}
+                      >
                         <span>Type your email address</span>
                       </small>
                     </div>
                     {/*                <!-- Input field --> */}
-                    <div className="relative my-6">
+                    {state.inputHasError.passwordHasError && (
+                      <ErrorModal
+                        errorMessage={"Please enter a valid password."}
+                      />
+                    )}
+                    <div
+                      className={`relative ${
+                        state.inputHasError.passwordHasError ? "" : "my-6"
+                      }`}
+                    >
                       <input
                         id="password"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         name="password"
                         placeholder="your password"
-                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        className={`${inputClasses} ${
+                          state.inputHasError.passwordHasError
+                            ? "border-pink-500 text-pink-500"
+                            : "focus:border-primary-colour border-slate-200"
+                        }`}
                         onChange={handleChange}
                       />
                       <label
                         htmlFor="password"
-                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        className={` ${labelClasses}
+                            ${
+                              state.inputHasError.passwordHasError
+                                ? "peer-focus:text-pink-500 text-pink-500"
+                                : "peer-focus:text-primary-colour text-slate-400"
+                            }`}
                       >
                         Your password
                       </label>
@@ -249,6 +344,9 @@ const RegisterModal = () => {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth="1.5"
+                        onClick={() => {
+                          setShowPassword(!showPassword);
+                        }}
                       >
                         <path
                           strokeLinecap="round"
@@ -256,22 +354,44 @@ const RegisterModal = () => {
                           d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                         />
                       </svg>
-                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                      <small
+                        className={`${spanClasses} ${
+                          state.inputHasError.passwordHasError
+                            ? "text-pink-500"
+                            : "text-slate-400 peer-focus:text-primary-colour"
+                        }`}
+                      >
                         <span>Type your password</span>
                       </small>
                     </div>
+                    {state.inputHasError.confirmPasswordHasError && (
+                      <ErrorModal
+                        errorMessage={
+                          "Please enter a valid password that matches your initial password."
+                        }
+                      />
+                    )}
                     <div className="relative">
                       <input
                         id="confirmPassword"
-                        type="password"
+                        type={showConfirmPassword ? "text" : "password"}
                         name="confirmPassword"
                         placeholder="confirm password"
-                        className="peer relative h-10 w-full rounded border border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                        className={`${inputClasses} ${
+                          state.inputHasError.confirmPasswordHasError
+                            ? "border-pink-500 text-pink-500"
+                            : "focus:border-primary-colour border-slate-200"
+                        }`}
                         onChange={handleChange}
                       />
                       <label
                         htmlFor="confirmPassword"
-                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                        className={` ${labelClasses}
+                            ${
+                              state.inputHasError.confirmPasswordHasError
+                                ? "peer-focus:text-pink-500 text-pink-500"
+                                : "peer-focus:text-primary-colour text-slate-400"
+                            }`}
                       >
                         Confirm password
                       </label>
@@ -282,6 +402,9 @@ const RegisterModal = () => {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                         strokeWidth="1.5"
+                        onClick={() => {
+                          setShowConfirmPassword(!showConfirmPassword);
+                        }}
                       >
                         <path
                           strokeLinecap="round"
@@ -289,7 +412,13 @@ const RegisterModal = () => {
                           d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                         />
                       </svg>
-                      <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
+                      <small
+                        className={`${spanClasses} ${
+                          state.inputHasError.confirmPasswordHasError
+                            ? "text-pink-500"
+                            : "text-slate-400 peer-focus:text-primary-colour"
+                        }`}
+                      >
                         <span>Confirm your password</span>
                       </small>
                     </div>
