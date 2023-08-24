@@ -25,12 +25,13 @@ const Services = () => {
           response.data.data.map((service) => {
             const serviceData = service.attributes;
 
+            const imageUrl = `/assets/services/${serviceData.title}.jpg`;
             return (
               <div key={service.id} className="col-span-4 md:col-span-5 ">
                 <div className="overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200 h-full">
                   <figure>
                     <Image
-                      src={serviceData.image_url}
+                      src={imageUrl}
                       alt="card image"
                       className="aspect-video w-full"
                       width={300}
