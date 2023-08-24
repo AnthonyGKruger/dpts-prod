@@ -45,6 +45,7 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLoggedIn: false,
+    successfullyRegistered: false,
     name: "",
     surname: "",
     email: "",
@@ -61,53 +62,69 @@ const userSlice = createSlice({
       surnameHasError: false,
     },
     error: false,
+    currentUsers: [],
   },
   reducers: {
-    inputChangeHandler: function (state, action) {
+    setUsers: (state, action) => {
+      state.currentUsers = action.payload;
+    },
+    inputChangeHandler: (state, action) => {
       const inputName = action.payload.name;
       const inputValue = action.payload.value;
 
       if (inputName === "registrationEmail") {
         // Validating the email input
+        state.email = inputValue;
         if (validateEmail(inputValue.trim())) {
-          state.email = inputValue;
-          state.inputHasError.emailHasError = false;
+          if (state.currentUsers.includes(inputValue)) {
+            state.userAlreadyRegistered = true;
+            state.inputHasError.emailHasError = true;
+            state.error = true;
+          } else {
+            state.userAlreadyRegistered = false;
+            state.inputHasError.emailHasError = false;
+            state.error = false;
+          }
         } else {
-          state.email = inputValue;
-          state.inputHasError.emailHasError = true;
-          state.error = true;
+          if (state.currentUsers.includes(inputValue)) {
+            state.userAlreadyRegistered = true;
+            state.inputHasError.emailHasError = true;
+            state.error = true;
+          } else {
+            state.userAlreadyRegistered = false;
+            state.inputHasError.emailHasError = true;
+            state.error = true;
+          }
         }
       } else if (inputName === "registrationName") {
         // Validating the password input
+        state.name = inputValue;
         if (validateName(inputValue.trim())) {
-          state.name = inputValue;
           state.inputHasError.nameHasError = false;
         } else {
-          state.name = inputValue;
           state.inputHasError.nameHasError = true;
           state.error = true;
         }
       } else if (inputName === "registrationSurname") {
         // Validating the password input
+        state.surname = inputValue;
         if (validateName(inputValue.trim())) {
-          state.surname = inputValue;
           state.inputHasError.surnameHasError = false;
         } else {
-          state.surname = inputValue;
           state.inputHasError.surnameHasError = true;
           state.error = true;
         }
       } else if (inputName === "password") {
         // Validating the password input
-        if (validatePassword(inputValue.trim())) {
-          state.password = inputValue;
-          state.password = inputValue;
+        state.password = inputValue.trim();
+
+        if (validatePassword(state.password)) {
           state.inputHasError.passwordHasError = false;
-          state.confirmingPasswordWithoutPassword = false;
+          // state.confirmingPasswordWithoutPassword = false;
           if (state.confirmPassword === "") {
             state.confirmingPasswordWithoutPassword = false;
           }
-          if (state.confirmPassword === state.confirmPassword) {
+          if (state.confirmPassword === state.password) {
             state.passwordsMatch = true;
             state.error = false;
           } else {
@@ -115,42 +132,41 @@ const userSlice = createSlice({
             state.error = true;
           }
         } else {
-          state.password = inputValue;
           state.inputHasError.passwordHasError = true;
           state.error = true;
-          state.confirmingPasswordWithoutPassword = false;
+          // state.confirmingPasswordWithoutPassword = false;
           if (state.confirmPassword === "") {
             state.confirmingPasswordWithoutPassword = false;
           }
-          if (state.password === state.confirmPassword) {
+          if (state.confirmPassword === state.password) {
             state.passwordsMatch = true;
-          } else if (state.confirmPassword !== "") {
+            state.error = false;
+          } else {
             state.passwordsMatch = false;
+            state.error = true;
           }
         }
       } else if (inputName === "confirmPassword") {
         // Validating the confirmation password input
-        if (validatePassword(inputValue.trim())) {
+        state.confirmPassword = inputValue.trim();
+        if (validatePassword(state.confirmPassword)) {
           if (state.password === "") {
             state.confirmingPasswordWithoutPassword = true;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = false;
             state.error = true;
           } else if (state.password !== state.confirmPassword) {
             state.passwordsMatch = false;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = false;
             state.error = true;
           } else {
             state.passwordsMatch = true;
             state.confirmingPasswordWithoutPassword = false;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = false;
+            state.error = false;
           }
         } else {
           if (state.password === "") {
             state.confirmingPasswordWithoutPassword = true;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = true;
             state.error = true;
           } else if (
@@ -158,12 +174,10 @@ const userSlice = createSlice({
             state.confirmPassword !== ""
           ) {
             state.passwordsMatch = false;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = true;
             state.error = true;
           } else {
             state.confirmingPasswordWithoutPassword = false;
-            state.confirmPassword = inputValue;
             state.inputHasError.confirmPasswordHasError = true;
             state.error = true;
             state.passwordsMatch = true;
@@ -201,7 +215,10 @@ const userSlice = createSlice({
       console.log(action);
     });
 
-    builder.addCase(registerHandler.fulfilled, (state, action) => {});
+    builder.addCase(registerHandler.fulfilled, (state, action) => {
+      state.successfullyRegistered = true;
+      state.isLoggedIn = true;
+    });
   },
 });
 

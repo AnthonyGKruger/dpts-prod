@@ -9,7 +9,7 @@ import { contactActions } from "@/store/contact-slice";
 import emailjs from "@emailjs/browser";
 import Spinner from "@/components/shared/Spinner";
 import ErrorModal from "@/components/shared/forms/ErrorModal";
-import SuccessModal from "@/components/shared/forms/contact/SuccessModal";
+import SuccessModal from "@/components/shared/forms/SuccessModal";
 const Form = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.contact);
