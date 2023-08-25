@@ -8,7 +8,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "ezdev-cms-8d2cb1c574f0.herokuapp.com",
+        hostname: "dptsbucket.s3.eu-west-2.amazonaws.com",
         port: "",
         pathname: "/**",
       },

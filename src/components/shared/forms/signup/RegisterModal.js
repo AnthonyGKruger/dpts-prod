@@ -6,6 +6,7 @@ import { userActions } from "@/store/user-slice";
 import ErrorModal from "@/components/shared/forms/ErrorModal";
 import axios from "axios";
 import SuccessModal from "@/components/shared/forms/SuccessModal";
+import Spinner from "@/components/shared/Spinner";
 
 const RegisterModal = () => {
   const dispatch = useDispatch();
@@ -102,6 +103,7 @@ const RegisterModal = () => {
   const submitHandler = async () => {
     if (
       !state.error &&
+      !state.userAlreadyRegistered &&
       state.name !== "" &&
       state.email !== "" &&
       state.password !== "" &&
@@ -116,7 +118,11 @@ const RegisterModal = () => {
         password: state.password,
       };
 
+      await dispatch(userActions.setIsRegistering(true));
+
       await dispatch(userActions.registerHandler(user));
+
+      await dispatch(userActions.setIsRegistering(false));
     }
   };
 
@@ -469,13 +475,17 @@ const RegisterModal = () => {
                 {/*        <!-- Modal actions --> */}
                 {!state.successfullyRegistered && (
                   <div className="flex justify-center gap-2">
-                    <button
-                      disabled={state.error}
-                      onClick={submitHandler}
-                      className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
-                    >
-                      <span>Register</span>
-                    </button>
+                    {state.isRegistering ? (
+                      <Spinner />
+                    ) : (
+                      <button
+                        disabled={state.error}
+                        onClick={submitHandler}
+                        className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
+                      >
+                        <span>Register</span>
+                      </button>
+                    )}
                   </div>
                 )}
               </div>

@@ -54,6 +54,7 @@ const userSlice = createSlice({
     passwordsMatch: false,
     userAlreadyRegistered: false,
     confirmingPasswordWithoutPassword: false,
+    isRegistering: false,
     inputHasError: {
       emailHasError: false,
       passwordHasError: false,
@@ -65,6 +66,9 @@ const userSlice = createSlice({
     currentUsers: [],
   },
   reducers: {
+    setIsRegistering: (state, action) => {
+      state.isRegistering = action.payload;
+    },
     setUsers: (state, action) => {
       state.currentUsers = action.payload;
     },
