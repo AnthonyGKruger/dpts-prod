@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { BsFillCartDashFill } from "react-icons/bs";
 import {
@@ -10,6 +10,8 @@ import {
 import { IoBusinessSharp } from "react-icons/io5";
 import LoginModal from "@/components/shared/forms/login/LoginModal";
 import RegisterModal from "@/components/shared/forms/signup/RegisterModal";
+import { useSelector } from "react-redux";
+import { userActions } from "@/store/user-slice";
 
 const dropdownNavs = [
   {
@@ -59,6 +61,7 @@ const dropdownNavs = [
   },
 ];
 const NavBar = () => {
+  const userState = useSelector((state) => state.user);
   const [state, setState] = useState(false);
   const [dropdownState, setDropdownState] = useState({
     isActive: false,
@@ -232,10 +235,27 @@ const NavBar = () => {
               })}
               <div className="flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0">
                 <li>
-                  <RegisterModal />
+                  {userState.isLoggedIn ? (
+                    <button className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none">
+                      <span>Cart</span>
+                    </button>
+                  ) : (
+                    <RegisterModal />
+                  )}
                 </li>
                 <li>
-                  <LoginModal />
+                  {userState.isLoggedIn ? (
+                    <button
+                      onClick={() => {
+                        userActions.logout();
+                      }}
+                      className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
+                    >
+                      <span>Logout</span>
+                    </button>
+                  ) : (
+                    <LoginModal />
+                  )}
                 </li>
               </div>
             </ul>

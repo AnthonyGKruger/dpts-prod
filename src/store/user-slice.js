@@ -1,20 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { validateEmail, validateName } from "@/store/contact-slice";
-import bcrypt from "bcryptjs";
 import axios from "axios";
-
-// const hashPassword = async (password) => {
-//   return await bcrypt.hash(password, 10);
-// };
-
-// Create a thunk action for hashing the password
-export const hashPasswordAsync = createAsyncThunk(
-  "user/hashPassword",
-  async (password) => {
-    return await bcrypt.hash(password, 10);
-    // return await hashPassword(password);
-  },
-);
 
 // Create a thunk action for registering the user
 export const registerHandler = createAsyncThunk(
@@ -26,11 +12,21 @@ export const registerHandler = createAsyncThunk(
   },
 );
 
-const comparePassword = (password, hashedPassword) => {
-  return bcrypt.compare(password, hashedPassword).then((result) => {
-    return result;
+export const loginHandler = createAsyncThunk("user/login", async (user) => {
+  await axios.post("/api/user/login/", user).then((response) => {
+    // console.log(response.statusText);
+    if (response.status === 200) {
+      console.log(response.data);
+      return response.data;
+    } else if (response.status === 403) {
+      console.log(response.data);
+      return response.data;
+    } else if (response.status === 400) {
+      console.log(response.data);
+      return response.data;
+    }
   });
-};
+});
 
 const validatePassword = (password) => {
   // Regular expression pattern to match the criteria
@@ -41,38 +37,69 @@ const validatePassword = (password) => {
   return pattern.test(password);
 };
 
+const initialState = {
+  loginFailed: false,
+  isLoggedIn: false,
+  successfullyRegistered: false,
+  successfullyLoggedIn: false,
+  passwordFailed: false,
+  name: "",
+  surname: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+  passwordsMatch: false,
+  userAlreadyRegistered: false,
+  confirmingPasswordWithoutPassword: false,
+  isRegistering: false,
+  isLoggingIn: false,
+  inputHasError: {
+    emailHasError: false,
+    passwordHasError: false,
+    confirmPasswordHasError: false,
+    nameHasError: false,
+    surnameHasError: false,
+  },
+  error: false,
+  currentUsers: [],
+  showLoginFocusMessage: false,
+};
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    isLoggedIn: false,
-    successfullyRegistered: false,
-    name: "",
-    surname: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-    passwordsMatch: false,
-    userAlreadyRegistered: false,
-    confirmingPasswordWithoutPassword: false,
-    isRegistering: false,
-    inputHasError: {
-      emailHasError: false,
-      passwordHasError: false,
-      confirmPasswordHasError: false,
-      nameHasError: false,
-      surnameHasError: false,
-    },
-    error: false,
-    currentUsers: [],
-  },
+  initialState: initialState,
   reducers: {
+    logout: (state) => {
+      console.log("logging out");
+      state = initialState;
+    },
     setIsRegistering: (state, action) => {
       state.isRegistering = action.payload;
+    },
+    setIsLoggingIn: (state, action) => {
+      state.isLoggingIn = action.payload;
     },
     setUsers: (state, action) => {
       state.currentUsers = action.payload;
     },
-    inputChangeHandler: (state, action) => {
+    loginFocusChangeHandler: (state, action) => {
+      state.showLoginFocusMessage = !action.payload;
+    },
+    loginInputChangeHandler: (state, action) => {
+      const inputName = action.payload.name;
+      const inputValue = action.payload.value;
+
+      if (inputName === "loginEmail") {
+        state.email = inputValue;
+        state.userAlreadyRegistered = state.currentUsers.includes(inputValue);
+        state.error = false;
+        state.loginFailed = false;
+      } else if (inputName === "loginPassword") {
+        state.password = inputValue;
+        state.error = false;
+        state.loginFailed = false;
+      }
+    },
+    registerInputChangeHandler: (state, action) => {
       const inputName = action.payload.name;
       const inputValue = action.payload.value;
 
@@ -199,37 +226,57 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(hashPasswordAsync.fulfilled, (state, action) => {
-      // Update the state with the hashed password
-      state.password = action.payload;
-      state.inputHasError.passwordHasError = false;
-      state.confirmPassword = "";
+    // builder.addCase(hashPasswordAsync.fulfilled, (state, action) => {
+    // Update the state with the hashed password
+    // state.password = action.payload;
+    // state.inputHasError.passwordHasError = false;
+    // state.confirmPassword = "";
 
-      // const user = {
-      //   name: state.name,
-      //   surname: state.surname,
-      //   email: state.email,
-      //   password: action.payload,
-      // };
+    // const user = {
+    //   name: state.name,
+    //   surname: state.surname,
+    //   email: state.email,
+    //   password: action.payload,
+    // };
 
-      // registerHandler(user);
-    });
+    // registerHandler(user);
+    // });
 
-    builder.addCase(hashPasswordAsync.rejected, (action) => {
-      console.log(action);
-    });
+    // builder.addCase(hashPasswordAsync.rejected, (action) => {
+    //   console.log(action);
+    // });
 
     builder.addCase(registerHandler.fulfilled, (state, action) => {
       state.successfullyRegistered = true;
       state.isLoggedIn = true;
+      state.password = "";
+      state.successfullyLoggedIn = true;
+    });
+
+    builder.addCase(loginHandler.fulfilled, (state, action) => {
+      state.successfullyRegistered = true;
+      state.isLoggedIn = true;
+      state.password = "";
+      state.successfullyLoggedIn = true;
+      state.error = false;
+      state.passwordFailed = false;
+      state.loginFailed = false;
+      console.log(action);
+    });
+
+    builder.addCase(loginHandler.rejected, (state, action) => {
+      state.error = true;
+      state.passwordFailed = true;
+      state.loginFailed = true;
     });
   },
 });
 
 export const userActions = {
   ...userSlice.actions,
-  hashPasswordAsync, // Export the hashPasswordAsync thunk action
+  // hashPasswordAsync, // Export the hashPasswordAsync thunk action
   registerHandler,
+  loginHandler,
 };
 
 export default userSlice;

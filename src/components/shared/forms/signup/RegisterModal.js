@@ -93,7 +93,7 @@ const RegisterModal = () => {
 
   const handleChange = (event) => {
     dispatch(
-      userActions.inputChangeHandler({
+      userActions.registerInputChangeHandler({
         value: event.target.value,
         name: event.target.name,
       }),
