@@ -5,6 +5,7 @@ import { userActions } from "@/store/user-slice";
 import { useDispatch, useSelector } from "react-redux";
 import ErrorModal from "@/components/shared/forms/ErrorModal";
 import Spinner from "@/components/shared/Spinner";
+import { setCookie } from "cookies-next";
 
 const LoginModal = () => {
   const [isShowing, setIsShowing] = useState(false);
@@ -115,6 +116,8 @@ const LoginModal = () => {
       await dispatch(userActions.loginHandler(user));
 
       await dispatch(userActions.setIsLoggingIn(false));
+
+      setIsShowing(false);
     } else {
       alert("Please register a account before attempting to log in.");
     }

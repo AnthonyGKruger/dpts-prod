@@ -10,8 +10,9 @@ import {
 import { IoBusinessSharp } from "react-icons/io5";
 import LoginModal from "@/components/shared/forms/login/LoginModal";
 import RegisterModal from "@/components/shared/forms/signup/RegisterModal";
-import { useSelector } from "react-redux";
-import { userActions } from "@/store/user-slice";
+import LogoutModal from "@/components/shared/forms/logout/LogoutModal";
+import { hasCookie } from "cookies-next";
+import { useDispatch, useSelector } from "react-redux";
 
 const dropdownNavs = [
   {
@@ -61,6 +62,7 @@ const dropdownNavs = [
   },
 ];
 const NavBar = () => {
+  // const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const [state, setState] = useState(false);
   const [dropdownState, setDropdownState] = useState({
@@ -244,18 +246,7 @@ const NavBar = () => {
                   )}
                 </li>
                 <li>
-                  {userState.isLoggedIn ? (
-                    <button
-                      onClick={() => {
-                        userActions.logout();
-                      }}
-                      className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
-                    >
-                      <span>Logout</span>
-                    </button>
-                  ) : (
-                    <LoginModal />
-                  )}
+                  {userState.isLoggedIn ? <LogoutModal /> : <LoginModal />}
                 </li>
               </div>
             </ul>

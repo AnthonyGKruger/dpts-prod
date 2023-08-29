@@ -25,8 +25,8 @@ export async function POST(request) {
   if (response.status === 200) {
     for (const user of response.data.data) {
       if (user.attributes.email === email) {
-        console.log(user);
-        console.log("user match...");
+        // console.log(user);
+        // console.log("user match...");
 
         const passwordIsMatched = await comparePassword(
           password,
@@ -34,12 +34,12 @@ export async function POST(request) {
         );
 
         if (await passwordIsMatched) {
-          console.log("password match");
-          return new Response("match", {
+          // console.log("password match");
+          return new Response(JSON.stringify(user.attributes), {
             status: 200,
           });
         } else {
-          console.log("password match fail");
+          // console.log("password match fail");
           return new Response("fail", {
             status: 403,
           });

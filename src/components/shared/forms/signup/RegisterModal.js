@@ -109,7 +109,7 @@ const RegisterModal = () => {
       state.password !== "" &&
       state.confirmPassword !== ""
     ) {
-      await dispatch(userActions.hashPasswordAsync(state.password));
+      // await dispatch(userActions.hashPasswordAsync(state.password));
 
       const user = {
         name: state.name,

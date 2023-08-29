@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const WaveSvg = () => {
   return (
@@ -11,7 +12,7 @@ const WaveSvg = () => {
                 className={`text-center md:text-6xl lg:text-7xl xl:text-9xl text-3xl font-base text-slate-800
                drop-shadow-2xl rounded-xl px-10`}
                 style={{
-                  textShadow: " 6px 2px 35px rgba(140,39,238,0.95);",
+                  textShadow: "0px 12px 16px rgba(140,39,238,0.95)",
                 }}
               >
                 {/*<h1 className={`text-center md:text-6xl lg:text-7xl xl:text-9xl text-4xl font-extrabold text-slate-800`}>*/}
@@ -27,7 +28,7 @@ const WaveSvg = () => {
             >
               <Link
                 href={"#"}
-                className={`md:mt-10 mt-2 md:h-12 h-9 rounded-xl bg-transparent md:px-6 px-3 py-2 font-base md:text-lg lg:text-2xl text-sm
+                className={`md:mt-10 mt-2 md:h-12 h-9 rounded-xl bg-primary-colour md:px-6 px-3 py-2 font-base md:text-lg lg:text-2xl text-sm
                 tracking-wide text-slate-200 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
                 duration-600 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
                 hover:scale-105 hover:border-accent-colour`}
@@ -45,13 +46,21 @@ const WaveSvg = () => {
             </div>
           </div>
         </div>
-        <object
-          className={`object-scale-down`}
-          type="image/svg+xml"
-          data="/assets/home/dpts-home-cta.svg"
-        >
-          svg-animation
-        </object>
+        {/*<object*/}
+        {/*  className={`object-scale-down`}*/}
+        {/*  type="image/svg+xml"*/}
+        {/*  data="/assets/home/dpts-home-cta.svg"*/}
+        {/*>*/}
+        {/*  svg-animation*/}
+        {/*</object>*/}
+        <Image
+          src={"/assets/home/digital-technology-abstract-background.jpg"}
+          alt={"abstract art"}
+          width={100}
+          height={100}
+          className={"w-full h-full"}
+          unoptimized
+        />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { validateEmail, validateName } from "@/store/contact-slice";
 import axios from "axios";
+import { getCookie, setCookie } from "cookies-next";
 
 // Create a thunk action for registering the user
 export const registerHandler = createAsyncThunk(
@@ -12,20 +13,33 @@ export const registerHandler = createAsyncThunk(
   },
 );
 
+// export const loginHandler = createAsyncThunk("user/login", async (user) => {
+//   await axios.post("/api/user/login/", user).then((response) => {
+//     // console.log(response.statusText);
+//     if (response.status === 200) {
+//       console.log(response.data);
+//       return response.data;
+//     } else if (response.status === 403) {
+//       console.log(response.data);
+//       return response.data;
+//     } else if (response.status === 400) {
+//       console.log(response.data);
+//       return response.data;
+//     }
+//   });
+// });
+
 export const loginHandler = createAsyncThunk("user/login", async (user) => {
-  await axios.post("/api/user/login/", user).then((response) => {
-    // console.log(response.statusText);
+  try {
+    const response = await axios.post("/api/user/login/", user);
     if (response.status === 200) {
-      console.log(response.data);
-      return response.data;
-    } else if (response.status === 403) {
-      console.log(response.data);
-      return response.data;
-    } else if (response.status === 400) {
-      console.log(response.data);
-      return response.data;
+      return response.data; // Return the data as the payload
+    } else if (response.status === 403 || response.status === 400) {
+      throw new Error(response.data); // Reject the action with an error
     }
-  });
+  } catch (error) {
+    throw new Error(error.message); // Reject the action with an error
+  }
 });
 
 const validatePassword = (password) => {
@@ -43,11 +57,11 @@ const initialState = {
   successfullyRegistered: false,
   successfullyLoggedIn: false,
   passwordFailed: false,
-  name: "",
-  surname: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
+  name: false,
+  surname: false,
+  email: false,
+  password: false,
+  confirmPassword: false,
   passwordsMatch: false,
   userAlreadyRegistered: false,
   confirmingPasswordWithoutPassword: false,
@@ -64,13 +78,36 @@ const initialState = {
   currentUsers: [],
   showLoginFocusMessage: false,
 };
+
 const userSlice = createSlice({
   name: "user",
   initialState: initialState,
   reducers: {
     logout: (state) => {
       console.log("logging out");
-      state = initialState;
+      state.loginFailed = false;
+      state.isLoggedIn = false;
+      state.successfullyRegistered = false;
+      state.successfullyLoggedIn = false;
+      state.passwordFailed = false;
+      state.name = "";
+      state.surname = "";
+      state.email = "";
+      state.password = "";
+      state.confirmPassword = "";
+      state.passwordsMatch = false;
+      state.userAlreadyRegistered = false;
+      state.confirmingPasswordWithoutPassword = false;
+      state.isRegistering = false;
+      state.isLoggingIn = false;
+      state.inputHasError.emailHasError = false;
+      state.inputHasError.passwordHasError = false;
+      state.inputHasError.confirmPasswordHasError = false;
+      state.inputHasError.nameHasError = false;
+      state.inputHasError.surnameHasError = false;
+      state.error = false;
+      state.currentUsers = [];
+      state.showLoginFocusMessage = false;
     },
     setIsRegistering: (state, action) => {
       state.isRegistering = action.payload;
@@ -226,26 +263,6 @@ const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // builder.addCase(hashPasswordAsync.fulfilled, (state, action) => {
-    // Update the state with the hashed password
-    // state.password = action.payload;
-    // state.inputHasError.passwordHasError = false;
-    // state.confirmPassword = "";
-
-    // const user = {
-    //   name: state.name,
-    //   surname: state.surname,
-    //   email: state.email,
-    //   password: action.payload,
-    // };
-
-    // registerHandler(user);
-    // });
-
-    // builder.addCase(hashPasswordAsync.rejected, (action) => {
-    //   console.log(action);
-    // });
-
     builder.addCase(registerHandler.fulfilled, (state, action) => {
       state.successfullyRegistered = true;
       state.isLoggedIn = true;
@@ -261,7 +278,16 @@ const userSlice = createSlice({
       state.error = false;
       state.passwordFailed = false;
       state.loginFailed = false;
-      console.log(action);
+      state.name = action.payload.name;
+      state.surname = action.payload.surname;
+      console.log(action.payload);
+
+      setCookie("user", {
+        isLoggedIn: true,
+        userName: action.payload.name,
+        userSurname: action.payload.surname,
+        userEmail: action.payload.email,
+      });
     });
 
     builder.addCase(loginHandler.rejected, (state, action) => {
@@ -274,7 +300,6 @@ const userSlice = createSlice({
 
 export const userActions = {
   ...userSlice.actions,
-  // hashPasswordAsync, // Export the hashPasswordAsync thunk action
   registerHandler,
   loginHandler,
 };
