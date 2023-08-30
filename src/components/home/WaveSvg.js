@@ -46,21 +46,21 @@ const WaveSvg = () => {
             </div>
           </div>
         </div>
-        {/*<object*/}
-        {/*  className={`object-scale-down`}*/}
-        {/*  type="image/svg+xml"*/}
-        {/*  data="/assets/home/dpts-home-cta.svg"*/}
-        {/*>*/}
-        {/*  svg-animation*/}
-        {/*</object>*/}
-        <Image
-          src={"/assets/home/digital-technology-abstract-background.jpg"}
-          alt={"abstract art"}
-          width={100}
-          height={100}
-          className={"w-full h-full"}
-          unoptimized
-        />
+        <object
+          className={`object-scale-down`}
+          type="image/svg+xml"
+          data="/assets/home/dpts-home-cta.svg"
+        >
+          svg-animation
+        </object>
+        {/*  <Image*/}
+        {/*    src={"/assets/home/digital-technology-abstract-background.jpg"}*/}
+        {/*    alt={"abstract art"}*/}
+        {/*    width={100}*/}
+        {/*    height={100}*/}
+        {/*    className={"w-full h-full"}*/}
+        {/*    unoptimized*/}
+        {/*  />*/}
       </div>
     </div>
   );

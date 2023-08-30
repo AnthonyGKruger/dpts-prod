@@ -1,41 +1,74 @@
-// Importing the necessary dependencies
-import { configureStore } from "@reduxjs/toolkit";
+// // Importing the necessary dependencies
+// import { configureStore } from "@reduxjs/toolkit";
+//
+// // Importing the contactSlice reducer
+// import contactSlice from "@/store/contact-slice";
+// import userSlice from "@/store/user-slice";
+//
+// // const rootReducer = combineReducers({
+// //   contact: contactSlice.reducer, // Adding the contactSlice reducer under the 'contact' key
+// //   user: userSlice.reducer,
+// // });
+//
+// // Configuring the Redux store
+// const store = configureStore({
+//   reducer: {
+//     contact: contactSlice.reducer, // Adding the contactSlice reducer under the 'contact' key
+//     user: userSlice.reducer,
+//   },
+// });
+//
+// // Exporting the Redux store
+// export default store;
 
-// Importing the contactSlice reducer
+// Importing the necessary dependencies
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
 import contactSlice from "@/store/contact-slice";
 import userSlice from "@/store/user-slice";
-import { persistReducer, persistStore } from "redux-persist";
-import { createWrapper } from "next-redux-wrapper";
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
+import thunk from "redux-thunk";
+// import storageSession from "reduxjs-toolkit-persist/lib/storage/session";
+import createWebStorage from "redux-persist/lib/storage/createWebStorage";
 
-// const persistConfig = {
-//   key: "root",
-//   storage,
-// };
-//
-// const userPersistedReducer = persistReducer(persistConfig, userSlice.reducer);
-//
-// const contactPersistedReducer = persistReducer(
-//   persistConfig,
-//   contactSlice.reducer,
-// );
+const createNoopStorage = () => {
+  return {
+    getItem(_key) {
+      return Promise.resolve(null);
+    },
+    setItem(_key, value) {
+      return Promise.resolve(value);
+    },
+    removeItem(_key) {
+      return Promise.resolve();
+    },
+  };
+};
 
-// const makeStore = () => {
-//   const store = configureStore({
-//     reducer: { userPersistedReducer, contactPersistedReducer },
-//   });
-//   store.__persistor = persistStore(store);
-//   return store;
-// };
+const storage =
+  typeof window !== "undefined"
+    ? createWebStorage("local")
+    : createNoopStorage();
 
-// Configuring the Redux store
-const store = configureStore({
-  reducer: {
-    contact: contactSlice.reducer, // Adding the contactSlice reducer under the 'contact' key
-    user: userSlice.reducer,
-  },
+const persistConfig = {
+  key: "root",
+  storage,
+};
+
+const rootReducer = combineReducers({
+  contact: contactSlice.reducer, // Adding the contactSlice reducer under the 'contact' key
+  user: userSlice.reducer,
 });
 
-// Exporting the Redux store
-export default store;
-// export const wrapper = createWrapper(makeStore);
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// const userPersisted = persistedReducer(persistConfig, userSlice.reducer);
+// const contactPersisted = persistedReducer(persistConfig, contactSlice.reducer);
+
+export const store = configureStore({
+  reducer: persistedReducer,
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: [thunk],
+});
+
+export const persistor = persistStore(store);

@@ -1,14 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 import { userActions } from "@/store/user-slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteCookie } from "cookies-next";
 
 const LogoutModal = () => {
   const [isShowing, setIsShowing] = useState(false);
   const dispatch = useDispatch();
-  const state = useSelector((state) => state.user);
   const wrapperRef = useRef(null);
 
   useEffect(() => {
