@@ -21,13 +21,13 @@ const dropdownNavs = [
       {
         title: "Enterprise Architecture",
         desc: "Duis aute irure dolor in reprehenderit",
-        path: "#",
+        path: "/services/3",
         icon: <IoBusinessSharp className="w-6 h-6" />,
       },
       {
         title: "Consultancy & Roadmaps",
         desc: "Duis aute irure dolor in reprehenderit",
-        path: "#",
+        path: "/services/2",
         icon: <TbMapSearch className="w-6 h-6" />,
       },
     ],
@@ -38,13 +38,13 @@ const dropdownNavs = [
       {
         title: "Transformation Strategy",
         desc: "Duis aute irure dolor in reprehenderit",
-        path: "#",
+        path: "/services/1",
         icon: <TbTransformFilled className="w-6 h-6" />,
       },
       {
         title: "Asset Health Analysis",
         desc: "Duis aute irure dolor in reprehenderit",
-        path: "#",
+        path: "/services/4",
         icon: <TbBrandGoogleAnalytics className="w-6 h-6" />,
       },
     ],
@@ -55,7 +55,7 @@ const dropdownNavs = [
       {
         title: "Digitising Your Store",
         desc: "Duis aute irure dolor in reprehenderit",
-        path: "#",
+        path: "/services/5",
         icon: <BsFillCartDashFill className="w-6 h-6" />,
       },
     ],
