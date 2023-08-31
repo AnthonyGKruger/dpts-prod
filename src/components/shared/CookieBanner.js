@@ -3,9 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { hasCookie, setCookie } from "cookies-next";
 
-const Modal = ({ showing }) => {
-  // const [showConsent, setShowConsent] = useState(true);
-
+const Modal = () => {
   const [isShowing, setIsShowing] = useState();
 
   // console.log(hasCookie("localConsent"), isShowing);
@@ -43,7 +41,7 @@ const Modal = ({ showing }) => {
         const focusableElements =
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-        const modal = document.querySelector("#modal"); // select the modal by it's id
+        const modal = document.querySelector("#modal"); // select the modal by it's [id]
 
         const firstFocusableElement =
           modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal

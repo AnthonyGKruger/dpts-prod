@@ -39,7 +39,7 @@ const RegisterModal = () => {
         const focusableElements =
           'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-        const modal = document.querySelector("#modal"); // select the modal by it's id
+        const modal = document.querySelector("#modal"); // select the modal by it's [id]
 
         const firstFocusableElement =
           modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
@@ -84,6 +84,7 @@ const RegisterModal = () => {
   }, [isShowing]);
 
   useEffect(() => {
+    dispatch(userActions.logout());
     axios
       .get("/api/user/get-users/")
       .then((response) =>
@@ -107,7 +108,8 @@ const RegisterModal = () => {
       state.name !== "" &&
       state.email !== "" &&
       state.password !== "" &&
-      state.confirmPassword !== ""
+      state.confirmPassword !== "" &&
+      state.confirmPassword === state.password
     ) {
       // await dispatch(userActions.hashPasswordAsync(state.password));
 
@@ -479,7 +481,10 @@ const RegisterModal = () => {
                       <Spinner />
                     ) : (
                       <button
-                        disabled={state.error}
+                        disabled={
+                          state.error ||
+                          state.password !== state.confirmPassword
+                        }
                         onClick={submitHandler}
                         className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
                       >

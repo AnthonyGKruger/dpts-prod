@@ -257,7 +257,8 @@ const userSlice = createSlice({
       state.inputHasError.surnameHasError ||
       state.inputHasError.emailHasError ||
       state.inputHasError.passwordHasError ||
-      state.inputHasError.confirmPasswordHasError
+      state.inputHasError.confirmPasswordHasError ||
+      state.password !== state.confirmPassword
         ? (state.error = true)
         : (state.error = false);
     },

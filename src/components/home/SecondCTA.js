@@ -9,7 +9,7 @@ const serviceList = [
     description:
       "We help Banks and Payment Processors transform their digital ambitions into reality",
     image: "/assets/home/circuit-board-2.jpg",
-    link: "/",
+    link: "/service/3",
     buttonText: "Simplify Your Payment Strategy",
   },
   {
@@ -18,7 +18,7 @@ const serviceList = [
     description:
       "Our Technology Strategy & Advisory practice helps architect exceptional business value.",
     image: "/assets/home/maze.jpg",
-    link: "/",
+    link: "/services/1",
     buttonText: "Get The Advise You Need",
   },
   {
@@ -26,7 +26,7 @@ const serviceList = [
     subtitle: "The future of payments",
     description: "Get to value faster with Cloud First.",
     image: "/assets/home/cloud.jpg",
-    link: "/",
+    link: "/services/2",
     buttonText: "Upscale Your Infrastructure",
   },
   {
@@ -35,7 +35,7 @@ const serviceList = [
     description:
       "Unlock powerful insights by tapping into data you didn’t even know you had.",
     image: "/assets/home/data.jpg",
-    link: "/",
+    link: "/services/4",
     buttonText: "Unlock Your Data's Potential",
   },
 ];
