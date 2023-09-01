@@ -3,7 +3,7 @@ import React from "react";
 const ErrorModal = ({ errorMessage }) => {
   return (
     <div
-      className="flex w-full items-start gap-4 rounded border border-pink-100 bg-pink-50 px-4 py-3 text-sm text-pink-500"
+      className="flex w-full items-start gap-4 rounded border border-pink-100 bg-pink-50 px-4 py-3 text-sm text-pink-500 mb-3"
       role="alert"
     >
       <svg

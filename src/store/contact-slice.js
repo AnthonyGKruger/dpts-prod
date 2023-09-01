@@ -16,7 +16,7 @@ export const validateName = (str) => {
 
 export const validateString = (str) => {
   // Regular expression to validate string format (alphanumeric and special characters)
-  let regex = /^[a-zA-Z0-9, '"!?&@\s]+$/;
+  let regex = /^[a-zA-Z0-9,.` '"!?&@\s]+$/;
   return regex.test(str);
 };
 

@@ -55,7 +55,7 @@ const AboutHero = () => {
                 </p>
                 <p
                   className={
-                    "text-lg lg:text-xl xl:text-2xl font-light tracking-wider"
+                    "text-lg lg:text-xl xl:text-2xl font-light tracking-wide"
                   }
                 >
                   {`If you're looking to transform your payment strategies,

@@ -35,7 +35,7 @@ import { persistor, store } from "@/store";
 
 const ContactForm = () => {
   return (
-    <section className={"py-14 px-4"}>
+    <section className={"py-14 px-4"} id={`contact`}>
       <Heading title={`Let's Transform Your Business Today!`} />
       <div className="lg:w-1/2 md:w-3/4 w-full px-6 m-auto">
         <div className="grid grid-cols-4 gap-6 md:grid-cols-8 lg:grid-cols-12">
