@@ -53,6 +53,7 @@ const storage =
 const persistConfig = {
   key: "root",
   storage,
+  blacklist: ["contact"],
 };
 
 const rootReducer = combineReducers({

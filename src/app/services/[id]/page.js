@@ -27,7 +27,6 @@ const ServicePage = ({ params, searchParams }) => {
 
   return (
     <>
-      {" "}
       {service ? (
         <section className={`lg:py-14`}>
           {/*<Heading subtitle={service.title} />*/}

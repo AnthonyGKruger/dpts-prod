@@ -74,6 +74,7 @@ const NavBar = () => {
   const navigation = [
     { title: "Services", path: "#", isDropdown: true, navs: dropdownNavs },
     { title: "About", path: "/about", isDropdown: false },
+    { title: "Contact", path: "/contact", isDropdown: false },
   ];
 
   useEffect(() => {

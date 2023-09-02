@@ -43,12 +43,30 @@ export const loginHandler = createAsyncThunk("user/login", async (user) => {
 });
 
 const validatePassword = (password) => {
-  // Regular expression pattern to match the criteria
-  const pattern =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-
-  // Test the password against the pattern
-  return pattern.test(password);
+  // // Regular expression pattern to match the criteria
+  // const pattern =
+  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
+  //
+  // // Test the password against the pattern
+  // return pattern.test(password);
+  // Check for at least one capital letter
+  if (!/[A-Z]/.test(password)) {
+    return false;
+  }
+  // Check for at least one lowercase letter
+  if (!/[a-z]/.test(password)) {
+    return false;
+  }
+  // Check for at least one number
+  if (!/[0-9]/.test(password)) {
+    return false;
+  }
+  // Check for at least one special character
+  if (!/[^A-Za-z0-9]/.test(password)) {
+    return false;
+  }
+  // All criteria met
+  return true;
 };
 
 const initialState = {
