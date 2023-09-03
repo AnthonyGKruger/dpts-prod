@@ -130,7 +130,6 @@ const Form = () => {
               type={"text"}
               name={"name"}
               placeholder={"Your Name"}
-              // value={state}
               inputClasses={`${inputClasses} ${
                 state.inputHasError.nameHasError
                   ? "border-pink-500 text-pink-500 focus:border-pink-500"

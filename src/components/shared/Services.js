@@ -19,14 +19,10 @@ const Services = () => {
   useEffect(() => {
     const fetchData = async () => {
       await axios
-        .get(`${process.env.NEXT_PUBLIC_CMS_BASE_URL}/api/dpts-services`, {
-          headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_TOKEN}`,
-          },
-        })
+        .post(`/api/services/`)
         .then((response) => {
           setServices(
-            response.data.data.map((service) => {
+            response.data.map((service) => {
               const serviceData = service.attributes;
               const serviceId = service.id;
 

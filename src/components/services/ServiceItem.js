@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const ServiceItem = ({ params }) => {
-  // console.log("params:", params);
   const [service, setService] = useState(null);
   const serviceId = params.id;
 
@@ -53,13 +52,6 @@ const ServiceItem = ({ params }) => {
                     >
                       {service.long_description}
                     </p>
-                    {/*<p*/}
-                    {/*  className={*/}
-                    {/*    "text-md  lg:text-lg xl:text-xl font-light tracking-wide"*/}
-                    {/*  }*/}
-                    {/*>*/}
-                    {/*  {service.short_description}*/}
-                    {/*</p>*/}
                     <p
                       className={
                         "text-md  lg:text-lg xl:text-xl font-light tracking-wide"

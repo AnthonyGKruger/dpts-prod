@@ -5,7 +5,6 @@ const Input = ({
   type,
   name,
   placeholder,
-
   inputClasses,
   labelClasses,
   label,
