@@ -300,7 +300,7 @@ const userSlice = createSlice({
       state.loginFailed = false;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
-      console.log(action.payload);
+      // console.log(action.payload);
 
       // setCookie("user", {
       //   isLoggedIn: true,

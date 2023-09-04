@@ -96,7 +96,8 @@ const LoginModal = () => {
     );
   };
 
-  const submitHandler = async () => {
+  const submitHandler = async (e) => {
+    e.preventDefault();
     console.log("logging user in...");
 
     if (
@@ -194,143 +195,147 @@ const LoginModal = () => {
                     </span>
                   </button>
                 </header>
-                {/*        <!-- Modal body --> */}
-                <div id="content-4a" className="flex-1">
-                  <div className="flex flex-col gap-6">
-                    {/*                <!-- Input field --> */}
-                    {state.showLoginFocusMessage && (
-                      <ErrorModal errorMessage={"User is not registered"} />
-                    )}
-                    {state.loginFailed && (
-                      <ErrorModal
-                        errorMessage={
-                          "Please ensure your credentials are correct."
-                        }
-                      />
-                    )}
-                    <div className="relative">
-                      <input
-                        id="loginEmail"
-                        type="email"
-                        name="loginEmail"
-                        placeholder="your email"
-                        className={`${inputClasses} ${
-                          state.inputHasError.emailHasError
-                            ? "border-pink-500 text-pink-500"
-                            : "focus:border-primary-colour border-slate-200"
-                        }`}
-                        onChange={handleChange}
-                        onBlur={() =>
-                          dispatch(
-                            userActions.loginFocusChangeHandler(
-                              state.userAlreadyRegistered,
-                            ),
-                          )
-                        }
-                      />
-                      <label
-                        htmlFor="loginEmail"
-                        className={` ${labelClasses}
+                <form onSubmit={submitHandler}>
+                  {/*        <!-- Modal body --> */}
+                  <div id="content-4a" className="flex-1">
+                    <div className="flex flex-col gap-6">
+                      {/*                <!-- Input field --> */}
+                      {state.showLoginFocusMessage && (
+                        <ErrorModal errorMessage={"User is not registered"} />
+                      )}
+                      {state.loginFailed && (
+                        <ErrorModal
+                          errorMessage={
+                            "Please ensure your credentials are correct."
+                          }
+                        />
+                      )}
+                      <div className="relative">
+                        <input
+                          id="loginEmail"
+                          type="email"
+                          name="loginEmail"
+                          placeholder="your email"
+                          className={`${inputClasses} ${
+                            state.inputHasError.emailHasError
+                              ? "border-pink-500 text-pink-500"
+                              : "focus:border-primary-colour border-slate-200"
+                          }`}
+                          onChange={handleChange}
+                          autoComplete={"on"}
+                          onBlur={() =>
+                            dispatch(
+                              userActions.loginFocusChangeHandler(
+                                state.userAlreadyRegistered,
+                              ),
+                            )
+                          }
+                        />
+                        <label
+                          htmlFor="loginEmail"
+                          className={` ${labelClasses}
                             ${
                               state.inputHasError.emailHasError
                                 ? "peer-focus:text-pink-500 text-pink-500"
                                 : "peer-focus:text-primary-colour text-slate-400"
                             }`}
-                      >
-                        Your email
-                      </label>
-                      <small
-                        className={`${spanClasses} ${
-                          state.inputHasError.emailHasError
-                            ? "text-pink-500"
-                            : "text-slate-400 peer-focus:text-primary-colour"
+                        >
+                          Your email
+                        </label>
+                        <small
+                          className={`${spanClasses} ${
+                            state.inputHasError.emailHasError
+                              ? "text-pink-500"
+                              : "text-slate-400 peer-focus:text-primary-colour"
+                          }`}
+                        >
+                          <span>Type your email address</span>
+                        </small>
+                      </div>
+                      {/*                <!-- Input field --> */}
+                      {state.inputHasError.passwordHasError && (
+                        <ErrorModal
+                          errorMessage={
+                            "Please enter a password matching the following criteria: a mix of uppercase and lowercase" +
+                            " letters, numbers, and special characters."
+                          }
+                        />
+                      )}
+                      <div
+                        className={`relative ${
+                          state.inputHasError.passwordHasError ? "my-2" : "my-6"
                         }`}
                       >
-                        <span>Type your email address</span>
-                      </small>
-                    </div>
-                    {/*                <!-- Input field --> */}
-                    {state.inputHasError.passwordHasError && (
-                      <ErrorModal
-                        errorMessage={
-                          "Please enter a password matching the following criteria: a mix of uppercase and lowercase" +
-                          " letters, numbers, and special characters."
-                        }
-                      />
-                    )}
-                    <div
-                      className={`relative ${
-                        state.inputHasError.passwordHasError ? "my-2" : "my-6"
-                      }`}
-                    >
-                      <input
-                        id="loginPassword"
-                        type={showPassword ? "text" : "password"}
-                        name="loginPassword"
-                        placeholder="your password"
-                        className={`${inputClasses} ${
-                          state.inputHasError.passwordHasError
-                            ? "border-pink-500 text-pink-500"
-                            : "focus:border-primary-colour border-slate-200"
-                        }`}
-                        onChange={handleChange}
-                      />
-                      <label
-                        htmlFor="loginPassword"
-                        className={` ${labelClasses}
+                        <input
+                          id="loginPassword"
+                          type={showPassword ? "text" : "password"}
+                          name="loginPassword"
+                          placeholder="your password"
+                          className={`${inputClasses} ${
+                            state.inputHasError.passwordHasError
+                              ? "border-pink-500 text-pink-500"
+                              : "focus:border-primary-colour border-slate-200"
+                          }`}
+                          onChange={handleChange}
+                          autoComplete={"on"}
+                        />
+                        <label
+                          htmlFor="loginPassword"
+                          className={` ${labelClasses}
                             ${
                               state.inputHasError.passwordHasError
                                 ? "peer-focus:text-pink-500 text-pink-500"
                                 : "peer-focus:text-primary-colour text-slate-400"
                             }`}
-                      >
-                        Your password
-                      </label>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        onClick={() => {
-                          setShowPassword(!showPassword);
-                        }}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                        />
-                      </svg>
-                      <small
-                        className={`${spanClasses} ${
-                          state.inputHasError.passwordHasError
-                            ? "text-pink-500"
-                            : "text-slate-400 peer-focus:text-primary-colour"
-                        }`}
-                      >
-                        <span>Type your password</span>
-                      </small>
+                        >
+                          Your password
+                        </label>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="absolute top-2.5 right-4 h-5 w-5 cursor-pointer stroke-slate-400 peer-disabled:cursor-not-allowed"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          onClick={() => {
+                            setShowPassword(!showPassword);
+                          }}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                          />
+                        </svg>
+                        <small
+                          className={`${spanClasses} ${
+                            state.inputHasError.passwordHasError
+                              ? "text-pink-500"
+                              : "text-slate-400 peer-focus:text-primary-colour"
+                          }`}
+                        >
+                          <span>Type your password</span>
+                        </small>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {/*        <!-- Modal actions --> */}
-                {!state.isLoggedIn && (
-                  <div className="flex justify-center gap-2">
-                    {state.isLoggingIn ? (
-                      <Spinner />
-                    ) : (
-                      <button
-                        disabled={state.error}
-                        onClick={submitHandler}
-                        className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
-                      >
-                        <span>Login</span>
-                      </button>
-                    )}
-                  </div>
-                )}
+                  {/*        <!-- Modal actions --> */}
+                  {!state.isLoggedIn && (
+                    <div className="flex justify-center gap-2">
+                      {state.isLoggingIn ? (
+                        <Spinner />
+                      ) : (
+                        <input
+                          disabled={state.error}
+                          type={"submit"}
+                          onClick={submitHandler}
+                          value={"Login"}
+                          className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
+                        />
+                      )}
+                    </div>
+                  )}
+                </form>
               </div>
             </div>,
             document.body,
