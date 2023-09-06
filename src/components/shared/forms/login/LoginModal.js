@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import { userActions } from "@/store/user-slice";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorModal from "@/components/shared/forms/ErrorModal";
+import ErrorModal from "@/components/shared/forms/alerts/ErrorModal";
 import Spinner from "@/components/shared/Spinner";
 
 const LoginModal = () => {
@@ -29,7 +29,7 @@ const LoginModal = () => {
     let html = document.querySelector("html");
 
     if (html) {
-      if (isShowing && html) {
+      if (state.showLoginModal && html) {
         html.style.overflowY = "hidden";
 
         const focusableElements =
@@ -47,7 +47,14 @@ const LoginModal = () => {
 
         document.addEventListener("keydown", function (e) {
           if (e.keyCode === 27) {
-            setIsShowing(false);
+            // setIsShowing(false);
+
+            dispatch(
+              userActions.showModalState({
+                modal: "showLoginModal",
+                isShowing: false,
+              }),
+            );
           }
 
           let isTabPressed = e.key === "Tab" || e.keyCode === 9;
@@ -77,7 +84,7 @@ const LoginModal = () => {
         html.style.overflowY = "visible";
       }
     }
-  }, [isShowing]);
+  }, [state.showLoginModal]);
 
   useEffect(() => {
     axios
@@ -117,7 +124,12 @@ const LoginModal = () => {
 
       await dispatch(userActions.setIsLoggingIn(false));
 
-      setIsShowing(false);
+      dispatch(
+        userActions.showModalState({
+          modal: "showLoginModal",
+          isShowing: false,
+        }),
+      );
     } else {
       alert("Please register a account before attempting to log in.");
     }
@@ -139,13 +151,26 @@ const LoginModal = () => {
   return (
     <>
       <button
-        onClick={() => setIsShowing(true)}
+        onClick={() => {
+          dispatch(
+            userActions.showModalState({
+              modal: "showAddToCartButNotLoggedInModal",
+              isShowing: false,
+            }),
+          );
+          dispatch(
+            userActions.showModalState({
+              modal: "showLoginModal",
+              isShowing: true,
+            }),
+          );
+        }}
         className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
       >
         <span>Login</span>
       </button>
 
-      {isShowing && typeof document !== "undefined"
+      {state.showLoginModal && typeof document !== "undefined"
         ? ReactDOM.createPortal(
             <div
               className="fixed top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-slate-300/20 backdrop-blur-sm"
@@ -167,7 +192,15 @@ const LoginModal = () => {
                     Welcome back!
                   </h3>
                   <button
-                    onClick={() => setIsShowing(false)}
+                    // onClick={() => setIsShowing(false)}
+                    onClick={() => {
+                      dispatch(
+                        userActions.showModalState({
+                          modal: "showLoginModal",
+                          isShowing: false,
+                        }),
+                      );
+                    }}
                     className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-primary-colour transition duration-300 hover:bg-secondary-colour hover:text-darker-purple focus:bg-secondary-colour focus:text-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:text-yellow-300 disabled:shadow-none disabled:hover:bg-transparent"
                     aria-label="close dialog"
                   >

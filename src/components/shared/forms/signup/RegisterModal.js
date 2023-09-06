@@ -3,9 +3,9 @@ import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
 
-import ErrorModal from "@/components/shared/forms/ErrorModal";
+import ErrorModal from "@/components/shared/forms/alerts/ErrorModal";
 import axios from "axios";
-import SuccessModal from "@/components/shared/forms/SuccessModal";
+import SuccessModal from "@/components/shared/forms/alerts/SuccessModal";
 import Spinner from "@/components/shared/Spinner";
 
 const RegisterModal = () => {
@@ -33,7 +33,14 @@ const RegisterModal = () => {
     let html = document.querySelector("html");
 
     if (html) {
-      if (isShowing && html) {
+      if (state.showRegisterModal && html) {
+        dispatch(
+          userActions.showModalState({
+            modal: "showAddToCartButNotLoggedInModal",
+            isShowing: false,
+          }),
+        );
+
         html.style.overflowY = "hidden";
 
         const focusableElements =
@@ -81,7 +88,7 @@ const RegisterModal = () => {
         html.style.overflowY = "visible";
       }
     }
-  }, [isShowing]);
+  }, [state.showRegisterModal]);
 
   useEffect(() => {
     dispatch(userActions.logout());
@@ -145,13 +152,26 @@ const RegisterModal = () => {
   return (
     <>
       <button
-        onClick={() => setIsShowing(true)}
+        onClick={() => {
+          dispatch(
+            userActions.showModalState({
+              modal: "showAddToCartButNotLoggedInModal",
+              isShowing: false,
+            }),
+          );
+          dispatch(
+            userActions.showModalState({
+              modal: "showRegisterModal",
+              isShowing: true,
+            }),
+          );
+        }}
         className="inline-flex w-full h-10 items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
       >
         <span>Register</span>
       </button>
 
-      {isShowing && typeof document !== "undefined"
+      {state.showRegisterModal && typeof document !== "undefined"
         ? ReactDOM.createPortal(
             <div
               className="fixed top-0 left-0 z-20 flex h-screen w-screen items-center justify-center bg-slate-300/20 backdrop-blur-sm"
@@ -173,7 +193,14 @@ const RegisterModal = () => {
                     Welcome! Register below
                   </h3>
                   <button
-                    onClick={() => setIsShowing(false)}
+                    onClick={() =>
+                      dispatch(
+                        userActions.showModalState({
+                          modal: "showRegisterModal",
+                          isShowing: false,
+                        }),
+                      )
+                    }
                     className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-primary-colour transition duration-300 hover:bg-secondary-colour hover:text-darker-purple focus:bg-secondary-colour focus:text-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:text-yellow-300 disabled:shadow-none disabled:hover:bg-transparent"
                     aria-label="close dialog"
                   >

@@ -7,10 +7,17 @@ import { BsFillCartDashFill } from "react-icons/bs";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import LoginBeforeAddToCartModal from "@/components/shared/forms/alerts/LoginBeforeAddToCartModal";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "@/store/user-slice";
 
 const ServiceItem = ({ params }) => {
   const [service, setService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const serviceId = params.id;
+  const userState = useSelector((state) => state.user);
+  const state = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios.post("/api/service/", { id: serviceId }).then((response) => {
@@ -18,8 +25,30 @@ const ServiceItem = ({ params }) => {
     });
   }, []);
 
+  const addToCartHandler = () => {
+    if (!userState.isLoggedIn) {
+      // setShowModal(true);
+      dispatch(
+        userActions.showModalState({
+          modal: "showAddToCartButNotLoggedInModal",
+          isShowing: true,
+        }),
+      );
+    }
+  };
+
+  const showModalHandler = () => {
+    setShowModal((state) => !state);
+  };
+
   return (
     <>
+      {/*{showModal && (*/}
+      {/*  <LoginBeforeAddToCartModal showModalHandler={showModalHandler} />*/}
+      {/*)}*/}
+      {state.showAddToCartButNotLoggedInModal && (
+        <LoginBeforeAddToCartModal showModalHandler={showModalHandler} />
+      )}
       {service ? (
         <section className={`lg:py-14`}>
           <div className="container px-6 m-auto mt-6">
@@ -59,8 +88,8 @@ const ServiceItem = ({ params }) => {
                     >
                       {`Price per consultation - R${service.price}`}
                     </p>
-                    <Link
-                      href={"#"}
+                    <button
+                      onClick={addToCartHandler}
                       className={
                         " my-auto h-14 rounded-xl bg-primary-colour md:px-6 px-3 font-base  text-md lg:text-lg xl:text-xl" +
                         " tracking-wide text-slate-50 hover:text-slate-800 shadow-lg shadow-secondary-colour border border-white/50 " +
@@ -73,7 +102,7 @@ const ServiceItem = ({ params }) => {
                       <span className={`ml-3 inline text-center`}>
                         <BsFillCartDashFill />
                       </span>
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>

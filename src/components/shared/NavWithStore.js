@@ -22,7 +22,7 @@ import DummyNav from "@/components/shared/DummyNav";
 
 const NavWithStore = () => {
   return (
-    <Provider store={store} loading={<div>Loading...</div>}>
+    <Provider store={store}>
       <PersistGate loading={<DummyNav />} persistor={persistor}>
         <NavBar />
       </PersistGate>

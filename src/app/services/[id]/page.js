@@ -1,4 +1,5 @@
 import ServiceItem from "@/components/services/ServiceItem";
+import ServiceStoreProvider from "@/components/services/ServiceStoreProvider";
 
 export async function generateMetadata({ params }, parent) {
   const id = params.id;
@@ -18,7 +19,11 @@ export async function generateMetadata({ params }, parent) {
 }
 
 const ServicePage = async ({ params }) => {
-  return <ServiceItem params={params} />;
+  return (
+    <ServiceStoreProvider>
+      <ServiceItem params={params} />
+    </ServiceStoreProvider>
+  );
 };
 
 export default ServicePage;

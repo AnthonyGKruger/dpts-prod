@@ -8,8 +8,9 @@ import { useRef } from "react";
 import { contactActions } from "@/store/contact-slice";
 import emailjs from "@emailjs/browser";
 import Spinner from "@/components/shared/Spinner";
-import ErrorModal from "@/components/shared/forms/ErrorModal";
-import SuccessModal from "@/components/shared/forms/SuccessModal";
+import ErrorModal from "@/components/shared/forms/alerts/ErrorModal";
+import SuccessModal from "@/components/shared/forms/alerts/SuccessModal";
+
 const Form = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.contact);

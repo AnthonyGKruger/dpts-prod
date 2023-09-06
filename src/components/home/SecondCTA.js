@@ -44,20 +44,51 @@ const subtitleClasses = "uppercase text-sm";
 const titleClasses = "font-extrabold lg:text-5xl xl:text-6xl text-3xl";
 const descriptionClasses = "lg:text-xl text-md";
 const imageClasses = "object-contain";
-const textContainerClasses =
-  "col-span-4 lg:col-span-6 pl-1/2 self-center flex flex-col gap-y-4 px-5 py-5";
-const imageContainerClasses = "col-span-4 lg:col-span-6";
+
+const desktopTextContainerClasses =
+  "col-span-4 lg:col-span-6 pl-1/2 self-center flex flex-col gap-y-4 px-5 py-5 ";
+const mobileTextContainerClasses =
+  "col-span-4 lg:col-span-6 pl-1/2 self-center flex flex-col gap-y-4 px-5 py-5 ";
+const desktopImageContainerClasses = "col-span-4 lg:col-span-6  ";
+const mobileImageContainerClasses = "col-span-4 lg:col-span-6  ";
+
 const buttonContainerClasses = `w-full h-full transition-all duration-300`;
 const buttonClasses = `h-9 rounded-xl bg-primary-colour md:px-6 px-3 font-base  text-md
                 tracking-wide text-slate-50 hover:text-slate-800 shadow-lg shadow-secondary-colour border border-white/50 
                  hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour
                 hover:scale-105 hover:border-accent-colour transition-all duration-500 block w-fit py-1`;
 
-const serviceElements = serviceList.map((service, idx) => {
+const mobileServiceElements = serviceList.map((service, idx) => {
+  return (
+    <>
+      <div key={idx} className={mobileTextContainerClasses}>
+        <p className={subtitleClasses}>{service.subtitle}</p>
+        <p className={titleClasses}>{service.title}</p>
+        <p className={descriptionClasses}>{service.description}</p>
+        <div className={buttonContainerClasses}>
+          <Link href={service.link} className={buttonClasses}>
+            {service.buttonText}
+          </Link>
+        </div>
+      </div>
+      <div className={mobileImageContainerClasses}>
+        <Image
+          src={service.image}
+          alt={service.title}
+          width={900}
+          height={500}
+          className={imageClasses}
+        />
+      </div>
+    </>
+  );
+});
+
+const desktopServiceElements = serviceList.map((service, idx) => {
   if (idx % 2 === 0) {
     return (
       <>
-        <div key={idx} className={textContainerClasses}>
+        <div key={idx} className={desktopTextContainerClasses}>
           <p className={subtitleClasses}>{service.subtitle}</p>
           <p className={titleClasses}>{service.title}</p>
           <p className={descriptionClasses}>{service.description}</p>
@@ -67,7 +98,7 @@ const serviceElements = serviceList.map((service, idx) => {
             </Link>
           </div>
         </div>
-        <div className={imageContainerClasses}>
+        <div className={desktopImageContainerClasses}>
           <Image
             src={service.image}
             alt={service.title}
@@ -81,7 +112,7 @@ const serviceElements = serviceList.map((service, idx) => {
   } else {
     return (
       <>
-        <div key={idx} className={imageContainerClasses}>
+        <div key={idx} className={desktopImageContainerClasses}>
           <Image
             src={service.image}
             alt={service.title}
@@ -90,7 +121,7 @@ const serviceElements = serviceList.map((service, idx) => {
             className={imageClasses}
           />
         </div>
-        <div className={textContainerClasses}>
+        <div className={desktopTextContainerClasses}>
           <p className={subtitleClasses}>{service.subtitle}</p>
           <p className={titleClasses}>{service.title}</p>
           <p className={descriptionClasses}>{service.description}</p>
@@ -110,8 +141,11 @@ const SecondCTA = () => {
     <section>
       <div className="container  m-auto pt-14">
         <Heading title={"Some Of Our Integrated Services"} />
-        <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 mt-10">
-          {serviceElements}
+        <div className=" grid-cols-4 md:grid-cols-8 lg:grid-cols-12 mt-10 hidden md:grid">
+          {desktopServiceElements}
+        </div>
+        <div className="grid grid-cols-4 md:grid-cols-8 lg:grid-cols-12 mt-10 md:hidden">
+          {mobileServiceElements}
         </div>
       </div>
     </section>

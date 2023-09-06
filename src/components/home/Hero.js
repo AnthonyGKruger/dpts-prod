@@ -3,7 +3,7 @@ import HeroSVG from "@/components/home/HeroSVG";
 import { useState } from "react";
 import Heading from "@/components/shared/Heading";
 const Hero = () => {
-  const containerClasses = `py-6 self-center pr-10 transition-all duration-700`;
+  const containerClasses = `py-6 self-center lg:pr-10 transition-all duration-700`;
   const headingClasses = `self-center text-3xl text-primary-colour transition-all duration-700 text-center`;
   const paragraphClasses = `self-center mt-5 md:text-md lg:text-lg text-center lg:text-left transition-all duration-700`;
   const buttonContainerClasses = `self-center w-full h-full col-span-1 flex justify-center items-center transition-all duration-300`;

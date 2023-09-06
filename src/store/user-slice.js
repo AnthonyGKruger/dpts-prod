@@ -13,22 +13,6 @@ export const registerHandler = createAsyncThunk(
   },
 );
 
-// export const loginHandler = createAsyncThunk("user/login", async (user) => {
-//   await axios.post("/api/user/login/", user).then((response) => {
-//     // console.log(response.statusText);
-//     if (response.status === 200) {
-//       console.log(response.data);
-//       return response.data;
-//     } else if (response.status === 403) {
-//       console.log(response.data);
-//       return response.data;
-//     } else if (response.status === 400) {
-//       console.log(response.data);
-//       return response.data;
-//     }
-//   });
-// });
-
 export const loginHandler = createAsyncThunk("user/login", async (user) => {
   try {
     const response = await axios.post("/api/user/login/", user);
@@ -43,12 +27,6 @@ export const loginHandler = createAsyncThunk("user/login", async (user) => {
 });
 
 const validatePassword = (password) => {
-  // // Regular expression pattern to match the criteria
-  // const pattern =
-  //   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/;
-  //
-  // // Test the password against the pattern
-  // return pattern.test(password);
   // Check for at least one capital letter
   if (!/[A-Z]/.test(password)) {
     return false;
@@ -70,6 +48,9 @@ const validatePassword = (password) => {
 };
 
 const initialState = {
+  showAddToCartButNotLoggedInModal: false,
+  showLoginModal: false,
+  showRegisterModal: false,
   loginFailed: false,
   isLoggedIn: false,
   successfullyRegistered: false,
@@ -103,6 +84,9 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       console.log("logging out");
+      // state.showAddToCartButNotLoggedInModal = false;
+      // state.showLoginModal = false;
+      // state.showRegisterModal = false;
       state.loginFailed = false;
       state.isLoggedIn = false;
       state.successfullyRegistered = false;
@@ -126,6 +110,9 @@ const userSlice = createSlice({
       state.error = false;
       state.currentUsers = [];
       state.showLoginFocusMessage = false;
+    },
+    showModalState: (state, action) => {
+      state[action.payload.modal] = action.payload.isShowing;
     },
     setIsRegistering: (state, action) => {
       state.isRegistering = action.payload;
