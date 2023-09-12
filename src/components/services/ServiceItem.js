@@ -23,6 +23,7 @@ const ServiceItem = ({ params }) => {
     axios.post("/api/service/", { id: serviceId }).then((response) => {
       setService(response.data.attributes);
     });
+    window.scrollTo(0, 0);
   }, []);
 
   const addToCartHandler = () => {
@@ -32,6 +33,14 @@ const ServiceItem = ({ params }) => {
         userActions.showModalState({
           modal: "showAddToCartButNotLoggedInModal",
           isShowing: true,
+        }),
+      );
+    } else if (userState.isLoggedIn) {
+      dispatch(
+        userActions.addToCartHandler({
+          service: service.title,
+          quantity: 1,
+          price: service.price,
         }),
       );
     }

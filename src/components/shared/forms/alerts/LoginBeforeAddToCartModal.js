@@ -1,13 +1,12 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
 import LoginModal from "@/components/shared/forms/login/LoginModal";
 import RegisterModal from "@/components/shared/forms/signup/RegisterModal";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
 
-const LoginBeforeAddToCartModal = ({ showModalHandler }) => {
-  const [isShowing, setIsShowing] = useState(true);
+const LoginBeforeAddToCartModal = () => {
   const wrapperRef = useRef(null);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
@@ -15,7 +14,12 @@ const LoginBeforeAddToCartModal = ({ showModalHandler }) => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsShowing(false);
+        dispatch(
+          userActions.showModalState({
+            modal: "showAddToCartButNotLoggedInModal",
+            isShowing: false,
+          }),
+        );
       }
     }
     document.addEventListener("mousedown", handleClickOutside);

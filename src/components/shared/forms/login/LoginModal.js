@@ -7,7 +7,6 @@ import ErrorModal from "@/components/shared/forms/alerts/ErrorModal";
 import Spinner from "@/components/shared/Spinner";
 
 const LoginModal = () => {
-  const [isShowing, setIsShowing] = useState(false);
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
   const wrapperRef = useRef(null);
@@ -16,7 +15,12 @@ const LoginModal = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsShowing(false);
+        dispatch(
+          userActions.showModalState({
+            modal: "showLoginModal",
+            isShowing: false,
+          }),
+        );
       }
     }
     document.addEventListener("mousedown", handleClickOutside);

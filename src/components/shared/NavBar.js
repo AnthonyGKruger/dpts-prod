@@ -13,6 +13,7 @@ import RegisterModal from "@/components/shared/forms/signup/RegisterModal";
 import LogoutModal from "@/components/shared/forms/logout/LogoutModal";
 import { hasCookie } from "cookies-next";
 import { useDispatch, useSelector } from "react-redux";
+import CartModal from "@/components/shared/forms/cart/CartModal";
 
 const dropdownNavs = [
   {
@@ -238,13 +239,7 @@ const NavBar = () => {
               })}
               <div className="flex-1 items-center justify-end gap-x-6 space-y-3 md:flex md:space-y-0">
                 <li>
-                  {userState.isLoggedIn ? (
-                    <button className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none">
-                      <span>Cart</span>
-                    </button>
-                  ) : (
-                    <RegisterModal />
-                  )}
+                  {userState.isLoggedIn ? <CartModal /> : <RegisterModal />}
                 </li>
                 <li>
                   {userState.isLoggedIn ? <LogoutModal /> : <LoginModal />}

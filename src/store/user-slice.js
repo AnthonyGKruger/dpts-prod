@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { validateEmail, validateName } from "@/store/contact-slice";
 import axios from "axios";
-// import { getCookie, setCookie } from "cookies-next";
 
 // Create a thunk action for registering the user
 export const registerHandler = createAsyncThunk(
@@ -76,6 +75,8 @@ const initialState = {
   error: false,
   currentUsers: [],
   showLoginFocusMessage: false,
+  cart: [],
+  totalItems: 0,
 };
 
 const userSlice = createSlice({
@@ -110,6 +111,18 @@ const userSlice = createSlice({
       state.error = false;
       state.currentUsers = [];
       state.showLoginFocusMessage = false;
+      state.cart = [];
+      state.totalItems = 0;
+    },
+    clearCartHandler: (state) => {
+      state.cart = [];
+      state.totalItems = 0;
+    },
+    removeFromCartHandler: (state, action) => {},
+    addToCartHandler: (state, action) => {
+      console.log(action.payload);
+      state.cart.push(action.payload);
+      state.totalItems += action.payload.quantity;
     },
     showModalState: (state, action) => {
       state[action.payload.modal] = action.payload.isShowing;
@@ -288,13 +301,6 @@ const userSlice = createSlice({
       state.name = action.payload.name;
       state.surname = action.payload.surname;
       // console.log(action.payload);
-
-      // setCookie("user", {
-      //   isLoggedIn: true,
-      //   userName: action.payload.name,
-      //   userSurname: action.payload.surname,
-      //   userEmail: action.payload.email,
-      // });
     });
 
     builder.addCase(loginHandler.rejected, (state) => {

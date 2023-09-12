@@ -11,8 +11,6 @@ import Spinner from "@/components/shared/Spinner";
 const RegisterModal = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
-
-  const [isShowing, setIsShowing] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const wrapperRef = useRef(null);
@@ -20,7 +18,12 @@ const RegisterModal = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        setIsShowing(false);
+        dispatch(
+          userActions.showModalState({
+            modal: "showRegisterModal",
+            isShowing: false,
+          }),
+        );
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -58,7 +61,12 @@ const RegisterModal = () => {
 
         document.addEventListener("keydown", function (e) {
           if (e.keyCode === 27) {
-            setIsShowing(false);
+            dispatch(
+              userActions.showModalState({
+                modal: "showAddToCartButNotLoggedInModal",
+                isShowing: false,
+              }),
+            );
           }
 
           let isTabPressed = e.key === "Tab" || e.keyCode === 9;
