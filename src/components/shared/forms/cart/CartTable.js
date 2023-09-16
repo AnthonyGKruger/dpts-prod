@@ -5,10 +5,9 @@ import TableRow from "@/components/shared/forms/cart/TableRow";
 const CartTable = () => {
   const state = useSelector((state) => state.user);
   const cart = state.cart;
-  const totalItems = state.totalItems;
 
   const tableRows = cart.map((service, idx) => {
-    return <TableRow key={idx} service={service} />;
+    return <TableRow key={idx} service={service} cartNum={idx + 1} />;
   });
 
   return (
@@ -46,24 +45,6 @@ const CartTable = () => {
                 Price
               </th>
             </tr>
-            {/*<tr>*/}
-            {/*  <th*/}
-            {/*    scope="row"*/}
-            {/*    className="h-12 px-6 text-sm text-center transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 "*/}
-            {/*  >*/}
-            {/*    1*/}
-            {/*  </th>*/}
-            {/*  <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">*/}
-            {/*    Apple Watch*/}
-            {/*  </td>*/}
-            {/*  <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">*/}
-            {/*    White*/}
-            {/*  </td>*/}
-
-            {/*  <td className="h-12 px-6 text-sm transition duration-300 border-t border-l first:border-l-0 border-slate-200 stroke-slate-500 text-slate-500 ">*/}
-            {/*    R299*/}
-            {/*  </td>*/}
-            {/*</tr>*/}
             {tableRows}
           </tbody>
           <tfoot>
@@ -76,7 +57,7 @@ const CartTable = () => {
                 Total
               </td>
               <td className="h-12 px-6 text-sm font-medium border-t border-l first:border-l-0 stroke-slate-700 text-slate-700 ">
-                R5297
+                {`R${state.totalItems * 1499}`}
               </td>
             </tr>
           </tfoot>

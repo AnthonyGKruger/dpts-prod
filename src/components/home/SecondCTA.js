@@ -9,7 +9,7 @@ const serviceList = [
     description:
       "We help Banks and Payment Processors transform their digital ambitions into reality",
     image: "/assets/home/circuit-board-2.jpg",
-    link: "/service/3",
+    link: "/services/3",
     buttonText: "Simplify Your Payment Strategy",
   },
   {

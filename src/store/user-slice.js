@@ -120,9 +120,25 @@ const userSlice = createSlice({
     },
     removeFromCartHandler: (state, action) => {},
     addToCartHandler: (state, action) => {
-      console.log(action.payload);
-      state.cart.push(action.payload);
-      state.totalItems += action.payload.quantity;
+      state.totalItems = 0;
+
+      let isInCart = false;
+      state.cart.forEach((service) => {
+        if (service.service === action.payload.service) {
+          service.quantity++;
+          isInCart = true;
+          // state.totalItems += service.quantity;
+        }
+      });
+
+      if (!isInCart) {
+        state.cart.push(action.payload);
+        // state.totalItems += action.payload.quantity;
+      }
+
+      state.cart.forEach((service) => {
+        state.totalItems += service.quantity;
+      });
     },
     showModalState: (state, action) => {
       state[action.payload.modal] = action.payload.isShowing;
