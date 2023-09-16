@@ -13,7 +13,6 @@ import { userActions } from "@/store/user-slice";
 
 const ServiceItem = ({ params }) => {
   const [service, setService] = useState(null);
-  const [showModal, setShowModal] = useState(false);
   const serviceId = params.id;
   const userState = useSelector((state) => state.user);
   const state = useSelector((state) => state.user);
@@ -28,7 +27,6 @@ const ServiceItem = ({ params }) => {
 
   const addToCartHandler = () => {
     if (!userState.isLoggedIn) {
-      // setShowModal(true);
       dispatch(
         userActions.showModalState({
           modal: "showAddToCartButNotLoggedInModal",
@@ -46,18 +44,9 @@ const ServiceItem = ({ params }) => {
     }
   };
 
-  const showModalHandler = () => {
-    setShowModal((state) => !state);
-  };
-
   return (
     <>
-      {/*{showModal && (*/}
-      {/*  <LoginBeforeAddToCartModal showModalHandler={showModalHandler} />*/}
-      {/*)}*/}
-      {state.showAddToCartButNotLoggedInModal && (
-        <LoginBeforeAddToCartModal showModalHandler={showModalHandler} />
-      )}
+      {state.showAddToCartButNotLoggedInModal && <LoginBeforeAddToCartModal />}
       {service ? (
         <section className={`lg:py-14`}>
           <div className="container px-6 m-auto mt-6">

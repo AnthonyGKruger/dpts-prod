@@ -22,12 +22,6 @@ const CartTable = () => {
             <tr>
               <th
                 scope="col"
-                className="h-12 px-6 text-sm font-medium text-center border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-100"
-              >
-                No
-              </th>
-              <th
-                scope="col"
                 className="h-12 px-6 text-sm font-medium border-l first:border-l-0 stroke-slate-700 text-slate-700 bg-slate-100"
               >
                 Description
@@ -51,7 +45,7 @@ const CartTable = () => {
             <tr>
               <td
                 className="h-12 px-6 text-sm font-medium border-t border-l first:border-l-0 stroke-slate-700 text-slate-700"
-                colSpan="2"
+                colSpan="1"
               ></td>
               <td className="h-12 px-6 text-sm font-medium border-t border-l first:border-l-0 stroke-slate-700 text-slate-700 ">
                 Total

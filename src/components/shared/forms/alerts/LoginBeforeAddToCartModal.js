@@ -123,7 +123,7 @@ const LoginBeforeAddToCartModal = () => {
               >
                 {/*        <!-- Modal header --> */}
                 <header id="login header" className="flex items-center">
-                  <h3 className="flex-1 text-lg font-medium text-slate-700">
+                  <h3 className="flex-1 lg:text-lg md:text-md text-sm font-medium text-slate-700">
                     Only registered users can add to cart! Please register or
                     log in.
                   </h3>
