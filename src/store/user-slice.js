@@ -118,7 +118,32 @@ const userSlice = createSlice({
       state.cart = [];
       state.totalItems = 0;
     },
-    removeFromCartHandler: (state, action) => {},
+    removeFromCartHandler: (state, action) => {
+      state.totalItems = 0;
+
+      state.cart.forEach((service) => {
+        if (service.service === action.payload.service) {
+          service.quantity--;
+
+          if (service.quantity === 0) {
+            if (state.cart.length === 1) {
+              state.cart = [];
+            } else {
+              state.cart = state.cart.filter((service) => {
+                return service.service !== action.payload.service;
+              });
+            }
+          }
+        }
+      });
+
+      if (state.cart.length !== 0) {
+        state.cart.forEach((service) => {
+          state.totalItems += service.quantity;
+        });
+      }
+    },
+
     addToCartHandler: (state, action) => {
       state.totalItems = 0;
 

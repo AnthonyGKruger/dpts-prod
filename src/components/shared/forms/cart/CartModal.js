@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
 import { userActions } from "@/store/user-slice";
 import { useDispatch, useSelector } from "react-redux";
-import ErrorModal from "@/components/shared/forms/alerts/ErrorModal";
-import Spinner from "@/components/shared/Spinner";
 import CartTable from "@/components/shared/forms/cart/CartTable";
 
 const CartModal = () => {
@@ -16,12 +13,6 @@ const CartModal = () => {
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        // dispatch(
-        //   userActions.showModalState({
-        //     modal: "showLoginModal",
-        //     isShowing: false,
-        //   }),
-        // );
         setIsShowing(false);
       }
     }
@@ -54,13 +45,6 @@ const CartModal = () => {
         document.addEventListener("keydown", function (e) {
           if (e.keyCode === 27) {
             setIsShowing(false);
-
-            // dispatch(
-            //   userActions.showModalState({
-            //     modal: "showLoginModal",
-            //     isShowing: false,
-            //   }),
-            // );
           }
 
           let isTabPressed = e.key === "Tab" || e.keyCode === 9;
@@ -91,23 +75,6 @@ const CartModal = () => {
       }
     }
   }, [isShowing]);
-
-  // useEffect(() => {
-  //   axios
-  //     .get("/api/user/get-users/")
-  //     .then((response) =>
-  //       dispatch(userActions.setUsers(response.data.split(","))),
-  //     );
-  // }, [dispatch]);
-
-  const handleChange = async (event) => {
-    // await dispatch(
-    //   userActions.loginInputChangeHandler({
-    //     name: event.target.name,
-    //     value: event.target.value,
-    //   }),
-    // );
-  };
 
   const clearCartHandler = () => {
     dispatch(userActions.clearCartHandler());
@@ -144,36 +111,9 @@ const CartModal = () => {
     // }
   };
 
-  const inputClasses = `peer relative h-10 w-full rounded border px-4 text-sm text-slate-500 
-                        placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 
-                        invalid:text-pink-500  focus:outline-none invalid:focus:border-pink-500 
-                        disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400`;
-  const labelClasses = `absolute left-2 -top-2 z-[1] px-2 text-xs  transition-all before:absolute
-                        before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white
-                        before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm
-                        peer-required:after:text-pink-500 peer-required:after:content-['\\00a0*'] peer-invalid:text-pink-500
-                        peer-focus:-top-2 peer-focus:text-xs  peer-invalid:peer-focus:text-pink-500
-                        peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent`;
-
-  const spanClasses = `absolute flex w-full justify-between px-4 py-1 text-xs  transition peer-invalid:text-pink-500`;
-
   return (
     <>
       <button
-        // onClick={() => {
-        //   dispatch(
-        //     userActions.showModalState({
-        //       modal: "showAddToCartButNotLoggedInModal",
-        //       isShowing: false,
-        //     }),
-        //   );
-        //   dispatch(
-        //     userActions.showModalState({
-        //       modal: "showLoginModal",
-        //       isShowing: true,
-        //     }),
-        //   );
-        // }}
         onClick={() => setIsShowing(true)}
         className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
       >
@@ -199,18 +139,10 @@ const CartModal = () => {
                 {/*        <!-- Modal header --> */}
                 <header id="login header" className="flex items-center">
                   <h3 className="flex-1 text-lg font-medium text-slate-700">
-                    Welcome back!
+                    {state.cart.length === 0 ? "Oops!" : "Your Cart!"}
                   </h3>
                   <button
                     onClick={() => setIsShowing(false)}
-                    // // onClick={() => {
-                    // //   dispatch(
-                    // //     userActions.showModalState({
-                    // //       modal: "showLoginModal",
-                    // //       isShowing: false,
-                    // //     }),
-                    // //   );
-                    // }}
                     className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-primary-colour transition duration-300 hover:bg-secondary-colour hover:text-darker-purple focus:bg-secondary-colour focus:text-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:text-yellow-300 disabled:shadow-none disabled:hover:bg-transparent"
                     aria-label="close dialog"
                   >
@@ -246,15 +178,9 @@ const CartModal = () => {
                 )}
 
                 <div className="flex justify-center gap-2">
-                  {/*{state.isLoggingIn ? (*/}
-                  {/*  <Spinner />*/}
-                  {/*) : (*/}
                   {state.cart.length === 0 ? (
                     <button
-                      // disabled={state.error}
-                      // type={"submit"}
                       onClick={() => setIsShowing(false)}
-                      // value={"Login"}
                       className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
                     >
                       Continue Browsing
@@ -262,27 +188,19 @@ const CartModal = () => {
                   ) : (
                     <>
                       <button
-                        // disabled={state.error}
-                        // type={"submit"}
                         onClick={submitHandler}
-                        // value={"Login"}
                         className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
                       >
                         Checkout
                       </button>
                       <button
-                        // disabled={state.error}
-                        // type={"submit"}
                         onClick={clearCartHandler}
-                        // value={"Login"}
                         className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
                       >
                         Clear Cart
                       </button>
                     </>
                   )}
-
-                  {/*)}*/}
                 </div>
               </div>
             </div>,
