@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google";
 import Footer from "@/components/shared/Footer";
 import CookieBanner from "@/components/shared/CookieBanner";
 import NavWithStore from "@/components/shared/NavWithStore";
+import { Analytics } from "@vercel/analytics/react";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -28,6 +29,7 @@ export default function RootLayout({ children }) {
         {children}
         <Footer />
         <CookieBanner />
+        <Analytics />
       </body>
     </html>
   );
