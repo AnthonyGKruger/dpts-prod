@@ -111,6 +111,12 @@ const CartModal = () => {
     // }
   };
 
+  // const getCartQuantity = () => {
+  //   let quantity;
+  //   state.cart.forEach((item) => (quantity += item.quantity));
+  //   return quantity;
+  // };
+
   return (
     <>
       <button
@@ -118,6 +124,13 @@ const CartModal = () => {
         className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus-visible:outline-none"
       >
         <span>Cart</span>
+        {state.totalItems > 0 ? (
+          <span className="ml-2 inline-block whitespace-nowrap rounded-[0.27rem] bg-white px-[0.65em] pb-[0.25em] pt-[0.35em] text-center align-baseline text-[0.75em] font-bold leading-none text-primary-colour">
+            {state.totalItems}
+          </span>
+        ) : (
+          ""
+        )}
       </button>
 
       {isShowing && typeof document !== "undefined"
