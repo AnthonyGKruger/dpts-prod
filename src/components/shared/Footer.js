@@ -3,6 +3,9 @@ import Image from "next/image";
 
 import React from "react";
 import Link from "next/link";
+import { BsFacebook, BsLinkedin } from "react-icons/bs";
+import { FaTwitterSquare } from "react-icons/fa";
+import { AiFillGooglePlusSquare } from "react-icons/ai";
 
 const Footer = () => {
   return (
@@ -42,47 +45,47 @@ const Footer = () => {
                   className="mb-6 text-base font-medium text-slate-700"
                   id="footer-docs-5-logo"
                 >
-                  Docs & Help
+                  Services
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/services/1"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Documentation
+                      Transformation Strategy
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/services/2"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Training
+                      Consultancy & Roadmaps
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/services/3"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      System status
+                      Enterprise Architecture
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/services/4"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      FAQs
+                      Asset Health Analysis
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/services/5"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Help Center
+                      Digitising your Store
                     </Link>
                   </li>
                 </ul>
@@ -95,47 +98,23 @@ const Footer = () => {
                   className="mb-6 text-base font-medium text-slate-700"
                   id="footer-about-5-logo"
                 >
-                  About us
+                  Get In Touch
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/about"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
                       About us
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      href="/contact"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Careers
-                    </Link>
-                  </li>
-                  <li className="mb-2 leading-6">
-                    <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Leadership
-                    </Link>
-                  </li>
-                  <li className="mb-2 leading-6">
-                    <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Blog
-                    </Link>
-                  </li>
-                  <li className="mb-2 leading-6">
-                    <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Events
+                      Contact Us
                     </Link>
                   </li>
                 </ul>
@@ -148,39 +127,31 @@ const Footer = () => {
                   className="mb-6 text-base font-medium text-slate-700"
                   id="footer-get-in-touch-5-logo"
                 >
-                  Get in touch
+                  Social
                 </h3>
                 <ul>
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="text-2xl transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Contact
+                      <BsLinkedin />
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="text-2xl transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Support
+                      <BsFacebook />
                     </Link>
                   </li>
                   <li className="mb-2 leading-6">
                     <Link
                       href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
+                      className="text-2xl transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
                     >
-                      Partners
-                    </Link>
-                  </li>
-                  <li className="mb-2 leading-6">
-                    <Link
-                      href="#"
-                      className="transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600"
-                    >
-                      Join research
+                      <FaTwitterSquare />
                     </Link>
                   </li>
                 </ul>

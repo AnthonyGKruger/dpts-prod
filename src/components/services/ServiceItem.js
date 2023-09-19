@@ -10,9 +10,11 @@ import axios from "axios";
 import LoginBeforeAddToCartModal from "@/components/shared/forms/alerts/LoginBeforeAddToCartModal";
 import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "@/store/user-slice";
+import { TiTick } from "react-icons/ti";
 
 const ServiceItem = ({ params }) => {
   const [service, setService] = useState(null);
+  const [isInCart, setIsInCart] = useState(false);
   const serviceId = params.id;
   const userState = useSelector((state) => state.user);
   const state = useSelector((state) => state.user);
@@ -21,9 +23,14 @@ const ServiceItem = ({ params }) => {
   useEffect(() => {
     axios.post("/api/service/", { id: serviceId }).then((response) => {
       setService(response.data.attributes);
+      setIsInCart(
+        state.cart.filter((item) => {
+          return item.service === response.data.attributes.title;
+        }).length > 0,
+      );
     });
     window.scrollTo(0, 0);
-  }, []);
+  }, [serviceId, state.cart]);
 
   const addToCartHandler = () => {
     if (!userState.isLoggedIn) {
@@ -98,7 +105,17 @@ const ServiceItem = ({ params }) => {
                     >
                       Add to cart
                       <span className={`ml-3 inline text-center`}>
-                        <BsFillCartDashFill />
+                        {isInCart ? (
+                          <TiTick
+                            className={
+                              "text-xl text-green-400 transition-all delay-300"
+                            }
+                          />
+                        ) : (
+                          <BsFillCartDashFill
+                            className={"transition-all delay-300"}
+                          />
+                        )}
                       </span>
                     </button>
                   </div>

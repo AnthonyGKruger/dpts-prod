@@ -34,40 +34,40 @@ const Contact = () => {
         <div className="container px-6 m-auto">
           <div className="grid grid-cols-4 gap-6 md:grid-cols-8 lg:grid-cols-12">
             <div className="col-span-4 lg:col-span-6">
-              <Link href={"tel:+27610340820"} target={"_blank"}>
-                <div className="overflow-hidden text-center bg-white rounded shadow-md text-primary-colour shadow-slate-200 hover:text-darker-purple transition-all duration-300">
-                  {/*<figure className="p-6 pb-0">*/}
-                  <FaPhoneSquareAlt className={"mx-auto mt-6 mb-0 text-5xl "} />
-                  {/*</figure>*/}
+              {/*<Link href={"tel:+27610340820"} target={"_blank"}>*/}
+              <div className="overflow-hidden text-center bg-white rounded shadow-md text-primary-colour shadow-slate-200 hover:text-darker-purple transition-all duration-300">
+                {/*<figure className="p-6 pb-0">*/}
+                <FaPhoneSquareAlt className={"mx-auto mt-6 mb-0 text-5xl "} />
+                {/*</figure>*/}
 
-                  <h3 className="mb-4 mt-6 text-xl font-medium">Call Us</h3>
-                  <p className={"mb-6"}>
-                    <Link href={"tel:+27610340820"} target={"_blank"}>
-                      +27 61 034 0820
-                    </Link>
-                  </p>
-                </div>
-              </Link>
+                <h3 className="mb-4 mt-6 text-xl font-medium">Call Us</h3>
+                <p className={"mb-6"}>
+                  <Link href={"tel:+27610340820"} target={"_blank"}>
+                    +27 61 034 0820
+                  </Link>
+                </p>
+              </div>
+              {/*</Link>*/}
             </div>
 
             <div className="col-span-4 lg:col-span-6">
-              <Link href={"mailto:anthony@ezdev.solutions"} target={"_blank"}>
-                <div className="overflow-hidden text-center bg-white rounded shadow-md text-primary-colour shadow-slate-200 hover:text-darker-purple transition-all duration-300">
-                  {/*<figure className="p-6 pb-0">*/}
-                  <MdEmail className={"mx-auto mt-6 mb-0 text-5xl "} />
-                  {/*</figure>*/}
+              {/*<Link href={"mailto:anthony@ezdev.solutions"} target={"_blank"}>*/}
+              <div className="overflow-hidden text-center bg-white rounded shadow-md text-primary-colour shadow-slate-200 hover:text-darker-purple transition-all duration-300">
+                {/*<figure className="p-6 pb-0">*/}
+                <MdEmail className={"mx-auto mt-6 mb-0 text-5xl "} />
+                {/*</figure>*/}
 
-                  <h3 className="mb-4 mt-6 text-xl font-medium">Email Us</h3>
-                  <p className={"mb-6"}>
-                    <Link
-                      href={"mailto:anthony@ezdev.solutions"}
-                      target={"_blank"}
-                    >
-                      anthony@ezdev.solutions
-                    </Link>
-                  </p>
-                </div>
-              </Link>
+                <h3 className="mb-4 mt-6 text-xl font-medium">Email Us</h3>
+                <p className={"mb-6"}>
+                  <Link
+                    href={"mailto:anthony@ezdev.solutions"}
+                    target={"_blank"}
+                  >
+                    anthony@ezdev.solutions
+                  </Link>
+                </p>
+              </div>
+              {/*</Link>*/}
             </div>
           </div>
         </div>
