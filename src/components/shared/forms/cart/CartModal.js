@@ -4,16 +4,20 @@ import { userActions } from "@/store/user-slice";
 import { useDispatch, useSelector } from "react-redux";
 import CartTable from "@/components/shared/forms/cart/CartTable";
 
+import PaymentForm from "@/components/shared/forms/PaymentForm/PaymentForm";
+
 const CartModal = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.user);
   const wrapperRef = useRef(null);
   const [isShowing, setIsShowing] = useState(false);
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsShowing(false);
+        setShowPaymentForm(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -45,6 +49,7 @@ const CartModal = () => {
         document.addEventListener("keydown", function (e) {
           if (e.keyCode === 27) {
             setIsShowing(false);
+            setShowPaymentForm(false);
           }
 
           let isTabPressed = e.key === "Tab" || e.keyCode === 9;
@@ -79,43 +84,10 @@ const CartModal = () => {
   const clearCartHandler = () => {
     dispatch(userActions.clearCartHandler());
   };
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    console.log("add to cart handler");
 
-    // if (
-    //   !state.error &&
-    //   state.userAlreadyRegistered &&
-    //   state.email !== "" &&
-    //   state.password !== ""
-    // ) {
-    //   const user = {
-    //     email: state.email,
-    //     password: state.password,
-    //   };
-    //
-    //   await dispatch(userActions.setIsLoggingIn(true));
-    //
-    //   await dispatch(userActions.loginHandler(user));
-    //
-    //   await dispatch(userActions.setIsLoggingIn(false));
-    //
-    //   dispatch(
-    //     userActions.showModalState({
-    //       modal: "showLoginModal",
-    //       isShowing: false,
-    //     }),
-    //   );
-    // } else {
-    //   alert("Please register a account before attempting to log in.");
-    // }
+  const showPaymentFormHandler = () => {
+    setShowPaymentForm((state) => !state);
   };
-
-  // const getCartQuantity = () => {
-  //   let quantity;
-  //   state.cart.forEach((item) => (quantity += item.quantity));
-  //   return quantity;
-  // };
 
   return (
     <>
@@ -155,7 +127,10 @@ const CartModal = () => {
                     {state.cart.length === 0 ? "Oops!" : "Your Cart!"}
                   </h3>
                   <button
-                    onClick={() => setIsShowing(false)}
+                    onClick={() => {
+                      setIsShowing(false);
+                      setShowPaymentForm(false);
+                    }}
                     className="inline-flex h-10 items-center justify-center gap-2 justify-self-center whitespace-nowrap rounded-full px-5 text-sm font-medium tracking-wide  text-primary-colour transition duration-300 hover:bg-secondary-colour hover:text-darker-purple focus:bg-secondary-colour focus:text-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:text-yellow-300 disabled:shadow-none disabled:hover:bg-transparent"
                     aria-label="close dialog"
                   >
@@ -186,35 +161,39 @@ const CartModal = () => {
 
                 {state.cart.length === 0 ? (
                   <p>Your cart is currently empty!</p>
+                ) : showPaymentForm ? (
+                  <PaymentForm amount={state.totalItems * 1499} />
                 ) : (
                   <CartTable />
                 )}
 
-                <div className="flex justify-center gap-2">
-                  {state.cart.length === 0 ? (
-                    <button
-                      onClick={() => setIsShowing(false)}
-                      className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
-                    >
-                      Continue Browsing
-                    </button>
-                  ) : (
-                    <>
+                {!showPaymentForm && (
+                  <div className="flex justify-center gap-2">
+                    {state.cart.length === 0 ? (
                       <button
-                        onClick={submitHandler}
+                        onClick={() => setIsShowing(false)}
                         className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
                       >
-                        Checkout
+                        Continue Browsing
                       </button>
-                      <button
-                        onClick={clearCartHandler}
-                        className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
-                      >
-                        Clear Cart
-                      </button>
-                    </>
-                  )}
-                </div>
+                    ) : (
+                      <>
+                        <button
+                          onClick={showPaymentFormHandler}
+                          className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
+                        >
+                          Checkout
+                        </button>
+                        <button
+                          onClick={clearCartHandler}
+                          className="inline-flex mt-5 h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary-colour px-5 text-sm font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
+                        >
+                          Clear Cart
+                        </button>
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
             </div>,
             document.body,
