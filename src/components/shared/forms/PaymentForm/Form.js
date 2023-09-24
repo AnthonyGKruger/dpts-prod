@@ -5,11 +5,12 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useUrl } from "nextjs-current-url";
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
-
+  const { currentUrl } = useUrl();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -61,7 +62,9 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: currentUrl.includes("vercel")
+          ? "https://inhonourofalegend.vercel.app"
+          : "http://localhost:3000",
       },
     });
 

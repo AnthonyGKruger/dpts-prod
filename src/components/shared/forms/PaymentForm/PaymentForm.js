@@ -12,8 +12,6 @@ const stripePromise = loadStripe(
 
 export default function PaymentForm({ amount }) {
   const [clientSecret, setClientSecret] = useState(null);
-  // const stripe = useStripe();
-  // const elements = useElements();
 
   useEffect(() => {
     axios
@@ -26,6 +24,7 @@ export default function PaymentForm({ amount }) {
   const appearance = {
     theme: "stripe",
   };
+
   const options = {
     clientSecret,
     appearance,
