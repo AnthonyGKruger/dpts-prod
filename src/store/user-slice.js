@@ -77,6 +77,7 @@ const initialState = {
   showLoginFocusMessage: false,
   cart: [],
   totalItems: 0,
+  // clientSecret: null,
 };
 
 const userSlice = createSlice({
@@ -113,7 +114,11 @@ const userSlice = createSlice({
       state.showLoginFocusMessage = false;
       state.cart = [];
       state.totalItems = 0;
+      // state.clientSecret = null;
     },
+    // clientSecretHandler: (state, action) => {
+    //   state.clientSecret = action.payload.clientSecret;
+    // },
     clearCartHandler: (state) => {
       state.cart = [];
       state.totalItems = 0;

@@ -6,11 +6,14 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useUrl } from "nextjs-current-url";
+import ErrorMessage from "@/components/toasts/ErrorMessage";
+import SuccessMessage from "@/components/toasts/SuccessMessage";
+import InfoMessage from "@/components/toasts/InfoMessage";
 
-export default function CheckoutForm() {
+const Form = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const { currentUrl } = useUrl();
+  const { href } = useUrl() ?? {};
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -31,16 +34,30 @@ export default function CheckoutForm() {
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
       switch (paymentIntent.status) {
         case "succeeded":
-          setMessage("Payment succeeded!");
+          setMessage(
+            <SuccessMessage title={"Success"} text={"Payment succeeded!"} />,
+          );
           break;
         case "processing":
-          setMessage("Your payment is processing.");
+          setMessage(
+            <InfoMessage
+              title={"Processing"}
+              text={"Your payment is processing."}
+            />,
+          );
           break;
         case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
+          setMessage(
+            <ErrorMessage
+              title={"Error"}
+              text={"Your payment was not successful, please try again."}
+            />,
+          );
           break;
         default:
-          setMessage("Something went wrong.");
+          setMessage(
+            <ErrorMessage title={"Error"} text={"Something went wrong."} />,
+          );
           break;
       }
     });
@@ -62,9 +79,9 @@ export default function CheckoutForm() {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: currentUrl.includes("vercel")
-          ? "https://inhonourofalegend.vercel.app"
-          : "http://localhost:3000",
+        return_url: href.includes("vercel")
+          ? "https://inhonourofalegend.vercel.app/thank-you"
+          : "http://localhost:3000/thank-you",
       },
     });
 
@@ -74,9 +91,11 @@ export default function CheckoutForm() {
     // be redirected to an intermediate site first to authorize the payment, then
     // redirected to the `return_url`.
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
+      setMessage(<ErrorMessage title={"Error"} text={error.message} />);
     } else {
-      setMessage("An unexpected error occurred.");
+      setMessage(
+        <ErrorMessage title={"Error"} text={"An unexpected error occurred."} />,
+      );
     }
 
     setIsLoading(false);
@@ -112,4 +131,6 @@ export default function CheckoutForm() {
       {message && <div id="payment-message">{message}</div>}
     </form>
   );
-}
+};
+
+export default Form;
