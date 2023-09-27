@@ -77,7 +77,7 @@ const initialState = {
   showLoginFocusMessage: false,
   cart: [],
   totalItems: 0,
-  // clientSecret: null,
+  id: null,
 };
 
 const userSlice = createSlice({
@@ -86,9 +86,6 @@ const userSlice = createSlice({
   reducers: {
     logout: (state) => {
       console.log("logging out");
-      // state.showAddToCartButNotLoggedInModal = false;
-      // state.showLoginModal = false;
-      // state.showRegisterModal = false;
       state.loginFailed = false;
       state.isLoggedIn = false;
       state.successfullyRegistered = false;
@@ -114,11 +111,8 @@ const userSlice = createSlice({
       state.showLoginFocusMessage = false;
       state.cart = [];
       state.totalItems = 0;
-      // state.clientSecret = null;
+      state.id = null;
     },
-    // clientSecretHandler: (state, action) => {
-    //   state.clientSecret = action.payload.clientSecret;
-    // },
     clearCartHandler: (state) => {
       state.cart = [];
       state.totalItems = 0;
@@ -346,6 +340,7 @@ const userSlice = createSlice({
       state.loginFailed = false;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
+      state.id = action.payload.id;
       // console.log(action.payload);
     });
 

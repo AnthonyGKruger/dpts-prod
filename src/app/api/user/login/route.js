@@ -34,8 +34,9 @@ export async function POST(request) {
         );
 
         if (await passwordIsMatched) {
+          const data = { id: user.id, ...user.attributes };
           // console.log("password match");
-          return new Response(JSON.stringify(user.attributes), {
+          return new Response(JSON.stringify(data), {
             status: 200,
           });
         } else {

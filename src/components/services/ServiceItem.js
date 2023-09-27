@@ -103,7 +103,7 @@ const ServiceItem = ({ params }) => {
                         " place-content-center"
                       }
                     >
-                      Add to cart
+                      {isInCart ? "Added" : "Add to cart"}
                       <span className={`ml-3 inline text-center`}>
                         {isInCart ? (
                           <TiTick

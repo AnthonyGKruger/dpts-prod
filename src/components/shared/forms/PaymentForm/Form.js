@@ -74,7 +74,6 @@ const Form = () => {
 
     setIsLoading(true);
 
-    console.log(window.location);
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
