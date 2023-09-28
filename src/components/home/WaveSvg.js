@@ -27,7 +27,7 @@ const WaveSvg = () => {
               className={`w-full h-full col-span-1 flex justify-center items-center`}
             >
               <Link
-                href={"#"}
+                href={"/services/1"}
                 className={`md:mt-10 mt-2 md:h-12 h-9 rounded-xl bg-primary-colour md:px-6 px-3 py-2 font-base md:text-lg lg:text-2xl text-sm
                 tracking-wide text-slate-200 hover:text-slate-800 shadow-xl shadow-secondary-colour border border-white/50 transition-all
                 duration-600 hover:bg-secondary-colour hover:shadow-lg hover:shadow-secondary-colour

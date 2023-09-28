@@ -1,9 +1,16 @@
+export const metadata = {
+  title: "Not Found - DPTS",
+  description: "DPTS Not Found Page",
+};
+
 const notFound = () => {
   return (
     <main>
       <div className="max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8">
         <div className="max-w-lg mx-auto space-y-3 text-center">
-          <h3 className="text-indigo-600 font-semibold">404 Error</h3>
+          <p className="text-indigo-600 text-4xl font-semibold sm:text-5xl">
+            404 Error
+          </p>
           <p className="text-gray-800 text-4xl font-semibold sm:text-5xl">
             Page not found
           </p>
@@ -14,13 +21,13 @@ const notFound = () => {
           <div className="flex flex-wrap items-center justify-center gap-3">
             <a
               href="/"
-              className="block py-2 px-4 text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg"
+              className="block py-2 rounded bg-primary-colour px-5 text-lg font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
             >
               Continue Browsing
             </a>
             <a
               href="/contact"
-              className="block py-2 px-4 text-gray-700 hover:bg-gray-50 font-medium duration-150 active:bg-gray-100 border rounded-lg"
+              className="block py-2 rounded bg-primary-colour px-5 text-lg font-medium tracking-wide text-white hover:text-black transition duration-300 hover:bg-secondary-colour focus:bg-darker-purple focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-100 disabled:shadow-none"
             >
               Contact Us
             </a>

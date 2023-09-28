@@ -1,18 +1,12 @@
-"use client";
-import { Provider } from "react-redux";
-import { persistor, store } from "@/store";
-import ThankYou from "@/components/shared/ThankYou";
-import { PersistGate } from "redux-persist/integration/react";
-import Spinner from "@/components/shared/Spinner";
+import ThankYouWithStore from "@/components/shared/ThankYouWithStore";
 
-const ThankYouWithStore = () => {
-  return (
-    <Provider store={store}>
-      <PersistGate loading={<Spinner />} persistor={persistor}>
-        <ThankYou />
-      </PersistGate>
-    </Provider>
-  );
+export const metadata = {
+  title: "Thank You - DPTS",
+  description: "DPTS Thank You Page",
 };
 
-export default ThankYouWithStore;
+const ThankYou = () => {
+  return <ThankYouWithStore />;
+};
+
+export default ThankYou;
