@@ -85,6 +85,11 @@ const userSlice = createSlice({
   initialState: initialState,
   reducers: {
     logout: (state) => {
+      if (!state.cart.length === 0) {
+        axios
+          .post("/api/temp-cart", { id: state.id, cart: state.cart })
+          .then((response) => console.log(response));
+      }
       console.log("logging out");
       state.loginFailed = false;
       state.isLoggedIn = false;

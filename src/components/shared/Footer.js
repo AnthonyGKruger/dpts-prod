@@ -117,6 +117,14 @@ const Footer = () => {
                       Contact Us
                     </Link>
                   </li>
+                  <li className="mb-2 leading-6">
+                    <Link
+                      href="/privacy-policy"
+                      className="transition-colors duration-300 hover:text-primary-colour focus:text-primary-colour"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </li>
                 </ul>
               </nav>
               <nav
