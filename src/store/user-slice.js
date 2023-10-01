@@ -88,7 +88,7 @@ const userSlice = createSlice({
       if (!state.cart.length === 0) {
         axios
           .post("/api/temp-cart", { id: state.id, cart: state.cart })
-          .then((response) => console.log(response));
+          .then((response) => console.log(response, "cart updated"));
       }
       console.log("logging out");
       state.loginFailed = false;
